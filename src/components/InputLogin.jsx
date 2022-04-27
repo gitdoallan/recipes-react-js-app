@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import EmailValidator from 'email-validator';
+import Button from '@mui/material/Button';
+import FingerprintIcon from '@mui/icons-material/Fingerprint';
+import { setLocalStorage, getLocalStorage } from '../services/localStorage';
 
 export default function InputLogin() {
+  const history = useHistory();
   const [getEmail, setEmail] = useState('');
   const [getPassword, setPassword] = useState('');
   const [btnStatus, setBtnStatus] = useState(true);
@@ -20,11 +25,14 @@ export default function InputLogin() {
       setBtnStatus(true);
     }
   }, [getEmail, getPassword]);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch({ type: 'LOGIN', payload: { email: getEmail, password: getPassword } });
+    setLocalStorage('user', { email: getEmail });
+    setLocalStorage('mealsToken', 1); setLocalStorage('cocktailsToken', 1);
+    console.log(getLocalStorage('user'));
     setPassword(''); setEmail('');
+    history.push('/foods');
   };
 
   return (
@@ -50,13 +58,15 @@ export default function InputLogin() {
             data-testid="password-input"
           />
         </label>
-        <button
+        <Button
           disabled={ btnStatus }
-          data-testid="login-submit-btn"
           type="submit"
+          data-testid="login-submit-btn"
+          variant="contained"
+          endIcon={ <FingerprintIcon /> }
         >
           Enter
-        </button>
+        </Button>
       </form>
 
     </div>
