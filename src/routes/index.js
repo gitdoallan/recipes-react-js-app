@@ -25,21 +25,21 @@ export default function Routes() {
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route exact path="/foods" component={ Foods } />
-        <Route component={ NotFound } />
-        <Route path="/drinks" component={ Drinks } />
-        <Route path="/foods/{id}" component={ RecipeFoodDetails } />
-        <Route path="/drinks/{id}" component={ RecipeDrinkDetails } />
-        <Route path="/foods/{id}/in-progress" component={ RecipeFoodInProgress } />
-        <Route path="/drinks/{id}/in-progress" component={ RecipeDrinkInProgress } />
-        <Route path="/explore" component={ Explore } />
-        <Route path="/explore/foods" component={ ExploreFood } />
-        <Route path="/explore/drinks" component={ ExploreDrinks } />
+        <Route exact path="/drinks" component={ Drinks } />
+        <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
+        <Route path="/done-recipes" component={ DoneRecipes } />
+        <Route path="/profile" component={ Profile } />
+        <Route path="/drinks/:id/in-progress" component={ RecipeDrinkInProgress } />
+        <Route path="/drinks/:id" component={ RecipeDrinkDetails } />
         <Route path="/explore/foods/ingredients" component={ FoodIngredients } />
         <Route path="/explore/drinks/ingredients" component={ DrinkIngredients } />
         <Route path="/explore/foods/nationalities" component={ FoodNationalities } />
-        <Route path="/profile" component={ Profile } />
-        <Route path="/done-recipes" component={ DoneRecipes } />
-        <Route path="/favorite-recipes" component={ FavoriteRecipes } />
+        <Route exact path="/explore/foods" component={ ExploreFood } />
+        <Route exact path="/explore/drinks" component={ ExploreDrinks } />
+        <Route exact path="/explore" component={ Explore } />
+        <Route path="/foods/:id/in-progress" component={ RecipeFoodInProgress } />
+        <Route path="/foods/:id}" component={ RecipeFoodDetails } />
+        <Route component={ NotFound } />
       </Switch>
     </BrowserRouter>
   );

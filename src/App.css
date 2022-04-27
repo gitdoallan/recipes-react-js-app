@@ -22,3 +22,8 @@
 .header h1 {
   font-size: 20px;
 }
+
+.footer {
+  bottom: 0;
+  position: fixed;
+}
