@@ -1,11 +1,19 @@
 import React from 'react';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 export default function Profile() {
   return (
     <div>
-      <Header />
-      <h1 data-testid="page-title">Profile</h1>
+      <Header
+        altImg="Profile"
+        srcImg="profileIcon"
+        testIdImg="profile-top-btn"
+        title="Profile"
+        searchActive={ false }
+      />
+      <div>Profile</div>
+      <Footer />
     </div>
   );
 }
