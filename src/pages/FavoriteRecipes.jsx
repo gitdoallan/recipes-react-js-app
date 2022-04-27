@@ -1,12 +1,11 @@
 import React from 'react';
 import Header from '../components/Header';
 
-export default function Foods() {
+export default function FavoriteRecipes() {
   return (
     <div>
       <Header />
-      {/* <HeaderMUI /> */}
-      <h1>FoodsPage</h1>
+      <div>FavoriteRecipes</div>
     </div>
   );
 }
