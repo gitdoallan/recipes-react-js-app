@@ -25,6 +25,7 @@ export default function Routes() {
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route exact path="/foods" component={ Foods } />
+        <Route path="/profile" component={ Profile } />
         <Route component={ NotFound } />
         <Route path="/drinks" component={ Drinks } />
         <Route path="/foods/{id}" component={ RecipeFoodDetails } />
@@ -37,7 +38,6 @@ export default function Routes() {
         <Route path="/explore/foods/ingredients" component={ FoodIngredients } />
         <Route path="/explore/drinks/ingredients" component={ DrinkIngredients } />
         <Route path="/explore/foods/nationalities" component={ FoodNationalities } />
-        <Route path="/profile" component={ Profile } />
         <Route path="/done-recipes" component={ DoneRecipes } />
         <Route path="/favorite-recipes" component={ FavoriteRecipes } />
       </Switch>

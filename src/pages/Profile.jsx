@@ -5,7 +5,7 @@ export default function Profile() {
   return (
     <div>
       <Header />
-      <div>Profile</div>
+      <h1 data-testid="page-title">Profile</h1>
     </div>
   );
 }
