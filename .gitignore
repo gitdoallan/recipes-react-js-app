@@ -30,6 +30,6 @@ cypress/videos/
 cypress/reports
 src/routes/outrasRotas2.js
 
-src/components/HeaderMUI.js
-src/components/InputLoginMUI.jsx
-src/styles/Header.js
+src/components/HeaderMUI
+src/components/InputLoginMUI
+src/styles/Header
