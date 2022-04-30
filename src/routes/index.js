@@ -37,8 +37,8 @@ export default function Routes() {
         <Route exact path="/explore/foods" component={ ExploreFood } />
         <Route exact path="/explore/drinks" component={ ExploreDrinks } />
         <Route exact path="/explore" component={ Explore } />
+        <Route path="/foods/:id" component={ RecipeFoodDetails } />
         <Route path="/foods/:id/in-progress" component={ RecipeFoodInProgress } />
-        <Route path="/foods/:id}" component={ RecipeFoodDetails } />
         <Route component={ NotFound } />
       </Switch>
     </BrowserRouter>

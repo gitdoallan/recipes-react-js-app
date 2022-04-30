@@ -1,19 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import useImage from '../services/useImage';
+import drinkIconImg from '../images/drinkIcon.svg';
+import exploreIconImg from '../images/exploreIcon.svg';
+import mealIconImg from '../images/mealIcon.svg';
 
 export default function Footer() {
-  const drinkIconImg = useImage('drinkIcon');
-  const exploreIconImg = useImage('exploreIcon');
-  const mealIconImg = useImage('mealIcon');
-
   return (
     <footer data-testid="footer" className="footer">
       <div className="footer-imgs">
         <Link to="/drinks">
           <img
             data-testid="drinks-bottom-btn"
-            src={ drinkIconImg.image }
+            src={ drinkIconImg }
             alt="Drinks Icon"
           />
         </Link>
@@ -21,14 +19,14 @@ export default function Footer() {
         <Link to="/explore">
           <img
             data-testid="explore-bottom-btn"
-            src={ exploreIconImg.image }
+            src={ exploreIconImg }
             alt="Explore Icon"
           />
         </Link>
         <Link to="/foods">
           <img
             data-testid="food-bottom-btn"
-            src={ mealIconImg.image }
+            src={ mealIconImg }
             alt="Meal Icon"
           />
         </Link>

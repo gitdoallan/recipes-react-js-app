@@ -6,9 +6,6 @@ export default function Foods() {
   return (
     <div>
       <Header
-        altImg="Profile"
-        srcImg="profileIcon"
-        testIdImg="profile-top-btn"
         title="Foods"
         searchActive
       />

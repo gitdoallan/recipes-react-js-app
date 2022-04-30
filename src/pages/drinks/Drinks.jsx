@@ -6,9 +6,6 @@ export default function Drinks() {
   return (
     <div>
       <Header
-        altImg="Drinks"
-        srcImg="profileIcon"
-        testIdImg="profile-top-btn"
         title="Drinks"
         searchActive
       />
