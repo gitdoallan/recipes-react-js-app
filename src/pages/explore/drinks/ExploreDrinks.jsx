@@ -6,9 +6,6 @@ export default function ExploreDrinks() {
   return (
     <div>
       <Header
-        altImg="Explore Drinks"
-        srcImg="profileIcon"
-        testIdImg="profile-top-btn"
         title="Explore Drinks"
         searchActive={ false }
       />

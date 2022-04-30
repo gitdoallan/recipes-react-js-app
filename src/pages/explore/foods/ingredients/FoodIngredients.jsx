@@ -6,9 +6,6 @@ export default function FoodIngredients() {
   return (
     <div>
       <Header
-        altImg="Explore Ingredients"
-        srcImg="profileIcon"
-        testIdImg="profile-top-btn"
         title="Explore Ingredients"
         searchActive={ false }
       />

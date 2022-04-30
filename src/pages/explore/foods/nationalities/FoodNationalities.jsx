@@ -6,9 +6,6 @@ export default function FoodNationalities() {
   return (
     <div>
       <Header
-        altImg="Explore Nationalities"
-        srcImg="profileIcon"
-        testIdImg="profile-top-btn"
         title="Explore Nationalities"
         searchActive
       />

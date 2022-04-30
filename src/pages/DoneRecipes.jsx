@@ -5,9 +5,6 @@ export default function DoneRecipes() {
   return (
     <div>
       <Header
-        altImg="Done Recipes"
-        srcImg="profileIcon"
-        testIdImg="profile-top-btn"
         title="Done Recipes"
         searchActive={ false }
       />

@@ -1,33 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import propTypes from 'prop-types';
-import useImage from '../services/useImage';
+import { Link } from 'react-router-dom';
+import profileIcon from '../images/profileIcon.svg';
+import searchIcon from '../images/searchIcon.svg';
 
 export default function Header(props) {
-  const { altImg, testIdImg, srcImg, title, searchActive } = props;
-  const image = useImage(srcImg);
-  const searchImg = useImage('searchIcon');
+  const { title, searchActive } = props;
+  const [showSearchInput, setShowSearchInput] = useState(false);
+
+  const toggleSearchInput = () => {
+    setShowSearchInput(!showSearchInput);
+  };
+
   return (
     <div className="header">
-      <img
-        alt={ altImg }
-        data-testid={ testIdImg }
-        src={ image.image }
-      />
+      <Link to="/profile">
+        <img
+          alt="Profile"
+          data-testid="profile-top-btn"
+          src={ profileIcon }
+        />
+      </Link>
       <h1 data-testid="page-title">{title}</h1>
       {searchActive
-      && <img
-        alt="Search"
-        src={ searchImg.image }
-        data-testid="search-top-btn"
-      />}
+      && (
+        <button type="button" onClick={ toggleSearchInput }>
+          <img
+            alt="Search"
+            src={ searchIcon }
+            data-testid="search-top-btn"
+          />
+        </button>
+      )}
+      {showSearchInput && (
+        <input type="text" placeholder="Search..." data-testid="search-input" />
+      )}
     </div>
   );
 }
 
 Header.propTypes = {
-  altImg: propTypes.string.isRequired,
-  testIdImg: propTypes.string.isRequired,
-  srcImg: propTypes.string.isRequired,
   title: propTypes.string.isRequired,
   searchActive: propTypes.bool.isRequired,
 };

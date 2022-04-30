@@ -6,9 +6,6 @@ export default function ExploreFood() {
   return (
     <div>
       <Header
-        altImg="Explore Food"
-        srcImg="profileIcon"
-        testIdImg="profile-top-btn"
         title="Explore Foods"
         searchActive={ false }
       />
