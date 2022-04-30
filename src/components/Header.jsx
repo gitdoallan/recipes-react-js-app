@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import SearchSection from './SearchSection';
 
 export default function Header(props) {
   const { title, searchActive } = props;
@@ -32,9 +33,7 @@ export default function Header(props) {
           />
         </button>
       )}
-      {showSearchInput && (
-        <input type="text" placeholder="Search..." data-testid="search-input" />
-      )}
+      {showSearchInput && <SearchSection />}
     </div>
   );
 }
