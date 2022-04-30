@@ -12,15 +12,16 @@ export default function SearchSection() {
 
   useEffect(() => {
     const cases = {
-      '/foods': () => setWebsite('themealdb'),
-      '/drinks': () => setWebsite('thecocktaildb'),
+      '/foods': () => setWebsite({ url: 'themealdb', tag: 'meals' }),
+      '/drinks': () => setWebsite({ url: 'thecocktaildb', tag: 'drinks' }),
     };
-    return cases[path]();
+    return cases[path] && cases[path]();
   }, [path]);
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    fetchApi(filter, search, website).then((data) => data.meals)
+    const { url, tag } = website;
+    fetchApi(filter, search, url).then((data) => data[tag])
       .then((searchResults) => dispatch(
         { type: 'SEARCH', payload: { search, searchResults } },
       ))

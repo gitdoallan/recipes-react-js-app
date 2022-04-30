@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import SearchResultsDrinks from '../../components/SearchResultsDrinks';
 
 export default function Drinks() {
   return (
@@ -9,6 +10,7 @@ export default function Drinks() {
         title="Drinks"
         searchActive
       />
+      <SearchResultsDrinks />
       <Footer />
     </div>
   );

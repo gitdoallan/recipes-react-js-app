@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import SearchResultsMeal from '../../components/SearchResultsMeal';
 
 export default function Foods() {
   return (
@@ -11,6 +12,7 @@ export default function Foods() {
       />
       {/* <HeaderMUI /> */}
       <h1>FoodsPage</h1>
+      <SearchResultsMeal />
       <Footer />
     </div>
   );
