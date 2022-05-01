@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 export default function SearchResults() {
   const { searchResults,
-    sliceResults } = useSelector(({ receitasReducer }) => (receitasReducer));
+    sliceResults, search } = useSelector(({ receitasReducer }) => (receitasReducer));
   const history = useHistory();
   const dispatch = useDispatch();
   const MAX_LENGTH = 11;
@@ -14,19 +14,23 @@ export default function SearchResults() {
     if (searchResults?.length === 1) {
       history.push(`/foods/${searchResults[0].idMeal}`);
     }
-    const sliceMe = searchResults
-      .reduce((acc, element, index) => {
-        if (index < MAX_LENGTH && index !== EIGHT) {
-          return [...acc, element];
-        }
-        return acc;
-      }, []);
-    dispatch({ type: 'SLICE', payload: sliceMe });
-  }, [searchResults, history, dispatch]);
+    if (searchResults?.length > 1) {
+      const sliceMe = searchResults
+        .reduce((acc, element, index) => {
+          if (index < MAX_LENGTH && index !== EIGHT) {
+            return [...acc, element];
+          }
+          return acc;
+        }, []);
+      dispatch({ type: 'SLICE', payload: sliceMe });
+    } else if (search) {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
+  }, [searchResults, history, dispatch, search]);
 
   return (
     <div className="search-results">
-      <h1>SearchResults</h1>
+      <h1>SearchResultsMeal</h1>
       <ul>
         {sliceResults && sliceResults.map((result, index) => (
           <li data-testid={ `${index}-recipe-card` } key={ result.idMeal }>

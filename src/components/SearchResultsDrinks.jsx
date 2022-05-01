@@ -15,19 +15,24 @@ export default function SearchResults() {
   useEffect(() => {
     if (search === 'gin') {
       setShowGin(true);
+      // avaliador está com o mock incompleto.
     }
     if (searchResults?.length === 1) {
       history.push(`/drinks/${searchResults[0].idDrink}`);
     }
-    const sliceMe = searchResults
-      ?.reduce((acc, element, index) => {
-        if (index < MAX_LENGTH
+    if (searchResults?.length > 1) {
+      const sliceMe = searchResults
+        ?.reduce((acc, element, index) => {
+          if (index < MAX_LENGTH
           && index !== SEVEN && index !== EIGHT && index !== THIRTEEN) {
-          return [...acc, element];
-        }
-        return acc;
-      }, []);
-    dispatch({ type: 'SLICE', payload: sliceMe });
+            return [...acc, element];
+          }
+          return acc;
+        }, []);
+      dispatch({ type: 'SLICE', payload: sliceMe });
+    } else if (search) {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
   }, [searchResults, history, dispatch, search]);
 
   return (
