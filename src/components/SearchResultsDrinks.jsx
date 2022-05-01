@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import ginDrinks from '../services/mockApi';
+import { fetchDrinks } from '../services/api';
 
 export default function SearchResults() {
   const [showGin, setShowGin] = useState(false);
@@ -11,6 +12,15 @@ export default function SearchResults() {
   const dispatch = useDispatch();
   const MAX_LENGTH = 15;
   const SEVEN = 7; const EIGHT = 8; const THIRTEEN = 13;
+
+  useEffect(() => {
+    const LIMIT = 12;
+    fetchDrinks()
+      .then((
+        (result) => dispatch(
+          { type: 'SLICE', payload: result.drinks.slice(0, LIMIT) },
+        )));
+  }, [dispatch]);
 
   useEffect(() => {
     if (search === 'gin') {

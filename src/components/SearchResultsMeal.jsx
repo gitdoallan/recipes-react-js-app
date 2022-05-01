@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { fetchFoods } from '../services/api';
 
 export default function SearchResults() {
   const { searchResults,
@@ -9,6 +10,15 @@ export default function SearchResults() {
   const dispatch = useDispatch();
   const MAX_LENGTH = 11;
   const EIGHT = 8;
+
+  useEffect(() => {
+    const LIMIT = 12;
+    fetchFoods()
+      .then((
+        (result) => dispatch(
+          { type: 'SLICE', payload: result.meals.slice(0, LIMIT) },
+        )));
+  }, [dispatch]);
 
   useEffect(() => {
     if (searchResults?.length === 1) {
@@ -26,7 +36,7 @@ export default function SearchResults() {
     } else if (search) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
-  }, [searchResults, history, dispatch, search]);
+  }, [searchResults, history, search, dispatch]);
 
   return (
     <div className="search-results">
