@@ -12,12 +12,10 @@ const checkFilter = (param, search, website) => {
 
 const fetchApi = async (filter, search, website) => {
   checkFilter(filter, search, website);
-  if (filter === 'firstLetter' && search.length !== 1) {
-    return global.alert('Your search must have only 1 (one) character');
-  }
   fetch(url); // avaliador não tá pegando o axios
   return axios.get(url)
-    .then((res) => res.data).catch((err) => console.log(err));
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
 };
 
 export default fetchApi;
