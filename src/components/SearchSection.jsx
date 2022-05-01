@@ -21,6 +21,9 @@ export default function SearchSection() {
   const handleSearch = async (e) => {
     e.preventDefault();
     const { url, tag } = website;
+    if (filter === 'firstLetter' && search.length > 1) {
+      return global.alert('Your search must have only 1 (one) character');
+    }
     fetchApi(filter, search, url).then((data) => data[tag])
       .then((searchResults) => dispatch(
         { type: 'SEARCH', payload: { search, searchResults } },
@@ -39,7 +42,6 @@ export default function SearchSection() {
           data-testid="search-input"
         />
         <label htmlFor="ingredient-search-radio">
-          Ingredient
           <input
             type="radio"
             id="ingredient-search-radio"
@@ -48,9 +50,9 @@ export default function SearchSection() {
             onChange={ () => setFilter('ingredient') }
             defaultChecked
           />
+          Ingredient
         </label>
         <label htmlFor="name-search-radio">
-          Name
           <input
             type="radio"
             id="name-search-radio"
@@ -58,9 +60,9 @@ export default function SearchSection() {
             onChange={ () => setFilter('search') }
             data-testid="name-search-radio"
           />
+          Name
         </label>
         <label htmlFor="first-letter-search-radio">
-          First Letter
           <input
             type="radio"
             id="first-letter-search-radio"
@@ -68,6 +70,7 @@ export default function SearchSection() {
             onChange={ () => setFilter('firstLetter') }
             data-testid="first-letter-search-radio"
           />
+          First Letter
         </label>
         <button data-testid="exec-search-btn" type="submit">Search</button>
       </form>
