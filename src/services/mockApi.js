@@ -1,4 +1,4 @@
-const ginDrinks = [
+export const ginDrinks = [
   'https://www.thecocktaildb.com/images/media/drink/xhl8q31504351772.jpg',
   'https://www.thecocktaildb.com/images/media/drink/mt7l7m1504883523.jpg',
   'https://www.thecocktaildb.com/images/media/drink/qyr51e1504888618.jpg',
@@ -17,4 +17,28 @@ const ginDrinks = [
   'https://www.thecocktaildb.com/images/media/drink/eg9i1d1487603469.jpg',
 ];
 
-export default ginDrinks;
+export const meals = [
+  'https://www.themealdb.com/images/media/meals/58oia61564916529.jpg',
+  'https://www.themealdb.com/images/media/meals/mlchx21564916997.jpg',
+  'https://www.themealdb.com/images/media/meals/wuxrtu1483564410.jpg',
+  'https://www.themealdb.com/images/media/meals/uuyrrx1487327597.jpg',
+  'https://www.themealdb.com/images/media/meals/wtsvxx1511296896.jpg',
+  'https://www.themealdb.com/images/media/meals/txsupu1511815755.jpg',
+  'https://www.themealdb.com/images/media/meals/1525876468.jpg',
+  'https://www.themealdb.com/images/media/meals/1bsv1q1560459826.jpg',
+  'https://www.themealdb.com/images/media/meals/urzj1d1587670726.jpg',
+  'https://www.themealdb.com/images/media/meals/sxysrt1468240488.jpg',
+  'https://www.themealdb.com/images/media/meals/ysxwuq1487323065.jpg',
+  'https://www.themealdb.com/images/media/meals/rwuyqx1511383174.jpg',
+  'https://www.themealdb.com/images/media/meals/utxqpt1511639216.jpg',
+  'https://www.themealdb.com/images/media/meals/wssvvs1511785879.jpg',
+  'https://www.themealdb.com/images/media/meals/uuxwvq1483907861.jpg',
+  'https://www.themealdb.com/images/media/meals/xrrwpx1487347049.jpg',
+  'https://www.themealdb.com/images/media/meals/wrustq1511475474.jpg',
+  'https://www.themealdb.com/images/media/meals/ytpstt1511814614.jpg',
+  'https://www.themealdb.com/images/media/meals/yrstur1511816601.jpg',
+  'https://www.themealdb.com/images/media/meals/g373701551450225.jpg',
+  'https://www.themealdb.com/images/media/meals/uuuspp1468263334.jpg',
+  'https://www.themealdb.com/images/media/meals/sxxpst1468569714.jpg',
+  'https://www.themealdb.com/images/media/meals/qstyvs1505931190.jpg',
+];

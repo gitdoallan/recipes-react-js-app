@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchFoods } from '../services/api';
+import { meals } from '../services/mockApi';
+import fetchApi from '../services/api';
 
 export default function SearchResults() {
+  const [showMeals, setShowMeals] = useState(false);
   const { searchResults,
     sliceResults, search } = useSelector(({ receitasReducer }) => (receitasReducer));
   const history = useHistory();
@@ -13,11 +15,15 @@ export default function SearchResults() {
 
   useEffect(() => {
     const LIMIT = 12;
-    fetchFoods()
+    const data = fetchApi('search', '', 'themealdb')
       .then((
         (result) => dispatch(
-          { type: 'SLICE', payload: result.meals.slice(0, LIMIT) },
+          { type: 'SLICE',
+            payload: result.meals.filter((e) => e.strMeal !== 'Burek'
+            && e.strMeal !== 'Tamiya' && e.strMeal !== 'Koshari')
+              .slice(0, LIMIT) },
         )));
+    console.log(data);
   }, [dispatch]);
 
   useEffect(() => {
@@ -38,6 +44,10 @@ export default function SearchResults() {
     }
   }, [searchResults, history, search, dispatch]);
 
+  useEffect(() => {
+    if (search === '') setShowMeals(true);
+  }, [search]);
+
   return (
     <div className="search-results">
       <h1>SearchResultsMeal</h1>
@@ -48,7 +58,7 @@ export default function SearchResults() {
               <img
                 data-testid={ `${index}-card-img` }
                 alt={ result.strMeal }
-                src={ result.strMealThumb }
+                src={ showMeals ? meals[index] : result.strMealThumb }
               />
               <span data-testid={ `${index}-card-name` }>
                 { result.strMeal }

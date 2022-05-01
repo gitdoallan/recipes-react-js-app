@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import ginDrinks from '../services/mockApi';
-import { fetchDrinks } from '../services/api';
+import { ginDrinks } from '../services/mockApi';
+import fetchApi from '../services/api';
 
 export default function SearchResults() {
   const [showGin, setShowGin] = useState(false);
@@ -15,7 +15,7 @@ export default function SearchResults() {
 
   useEffect(() => {
     const LIMIT = 12;
-    fetchDrinks()
+    fetchApi('search', '', 'thecocktaildb')
       .then((
         (result) => dispatch(
           { type: 'SLICE', payload: result.drinks.slice(0, LIMIT) },
