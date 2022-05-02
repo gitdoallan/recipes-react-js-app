@@ -9,6 +9,18 @@ export default function ExploreDrinks() {
         title="Explore Drinks"
         searchActive={ false }
       />
+      <button
+        type="button"
+        data-testid="explore-by-ingredient"
+      >
+        By Ingredient
+      </button>
+      <button
+        type="button"
+        data-testid="explore-surprise"
+      >
+        Surprise me!
+      </button>
       <Footer />
     </div>
   );
