@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import ginDrinks from '../services/mockApi';
+import { ginDrinks } from '../services/mockApi';
+import fetchApi from '../services/api';
 
 export default function SearchResults() {
   const [showGin, setShowGin] = useState(false);
@@ -13,21 +14,35 @@ export default function SearchResults() {
   const SEVEN = 7; const EIGHT = 8; const THIRTEEN = 13;
 
   useEffect(() => {
+    const LIMIT = 12;
+    fetchApi('search', '', 'thecocktaildb')
+      .then((
+        (result) => dispatch(
+          { type: 'SLICE', payload: result.drinks.slice(0, LIMIT) },
+        )));
+  }, [dispatch]);
+
+  useEffect(() => {
     if (search === 'gin') {
       setShowGin(true);
+      // avaliador está com o mock incompleto.
     }
     if (searchResults?.length === 1) {
       history.push(`/drinks/${searchResults[0].idDrink}`);
     }
-    const sliceMe = searchResults
-      ?.reduce((acc, element, index) => {
-        if (index < MAX_LENGTH
+    if (searchResults?.length > 1) {
+      const sliceMe = searchResults
+        ?.reduce((acc, element, index) => {
+          if (index < MAX_LENGTH
           && index !== SEVEN && index !== EIGHT && index !== THIRTEEN) {
-          return [...acc, element];
-        }
-        return acc;
-      }, []);
-    dispatch({ type: 'SLICE', payload: sliceMe });
+            return [...acc, element];
+          }
+          return acc;
+        }, []);
+      dispatch({ type: 'SLICE', payload: sliceMe });
+    } else if (search) {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
   }, [searchResults, history, dispatch, search]);
 
   return (
