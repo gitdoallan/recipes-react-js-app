@@ -2,13 +2,18 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { setLocalStorage, getLocalStorage } from '../services/localStorage';
+import { getLocalStorage } from '../services/localStorage';
 
 export default function Profile() {
   const history = useHistory();
   const stringifyLocalStorage = JSON.stringify(getLocalStorage('user'));
   const logoutBtn = () => {
-    setLocalStorage('user', '');
+    localStorage.removeItem('user');
+    localStorage.removeItem('mealsToken');
+    localStorage.removeItem('cocktailsToken');
+    localStorage.removeItem('doneRecipes');
+    localStorage.removeItem('favoriteRecipes');
+    localStorage.removeItem('inProgressRecipes');
     history.push('/');
   };
 
