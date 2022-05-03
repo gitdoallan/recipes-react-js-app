@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { meals } from '../services/mockApi';
-import fetchApi from '../services/api';
+import { fetchApi } from '../services/api';
 
 export default function SearchResults() {
   const [showMeals, setShowMeals] = useState(false);
