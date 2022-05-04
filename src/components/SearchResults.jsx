@@ -6,7 +6,7 @@ import { fetchApi } from '../services/api';
 import { MAX_SEARCH_RESULTS } from '../helpers/magicNumbers';
 
 export default function SearchResults(
-  { type, website, action, keyType, strId, strKey, strThumb },
+  { type, website, action, keyType, searchTerm, strId, strKey, strThumb },
 ) {
   const { searchResults,
     sliceResults, search } = useSelector(({ receitasReducer }) => (receitasReducer));
@@ -14,25 +14,29 @@ export default function SearchResults(
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchApi(action, '', website)
+    fetchApi(action, searchTerm, website)
       .then((
         (result) => dispatch(
           { type: 'SLICE',
             payload: result[keyType].slice(0, MAX_SEARCH_RESULTS) },
         )));
-  }, [dispatch, action, website, keyType]);
+  }, [dispatch, action, website, keyType, searchTerm]);
 
   useEffect(() => {
-    if (searchResults?.length === 1) {
-      history.push(`/${type}/${searchResults[0].idMeal}`);
+    if (searchResults?.length === 1 && action === 'search') {
+      history.push(`/${type}/${searchResults[0][strId]}`);
     }
     if (searchResults?.length > 1) {
       dispatch({ type: 'SLICE', payload: searchResults.slice(0, MAX_SEARCH_RESULTS) });
-    } else if (search) {
+    }
+    if (searchResults?.length === 0 && action === 'search' && searchTerm.length > 0) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
-  }, [searchResults, history, search, dispatch, type]);
+  }, [searchResults, history, search, dispatch, type, strKey, searchTerm, action, strId]);
 
+  useEffect(() => {
+    console.log(sliceResults);
+  }, [sliceResults]);
   return (
     <div className="search-results">
       <h1>SearchResults</h1>
@@ -65,4 +69,5 @@ SearchResults.propTypes = {
   strId: propTypes.string.isRequired,
   strKey: propTypes.string.isRequired,
   strThumb: propTypes.string.isRequired,
+  searchTerm: propTypes.string.isRequired,
 };

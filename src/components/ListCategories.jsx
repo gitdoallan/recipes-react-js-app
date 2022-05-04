@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import { LIMIT_CATEGORY_LIST } from '../helpers/magicNumbers';
 import { fetchApi } from '../services/api';
 
-function ListCategories(props) {
-  const { filter, website, type } = props;
+function ListCategories({ filter, website, keyType }) {
+  const dispatch = useDispatch();
   const [categories, setCategories] = useState([]);
-
-  console.log(categories, filter, website, type);
 
   useEffect(() => {
     fetchApi(filter, null, website)
-      .then((data) => setCategories(data[type].slice(0, LIMIT_CATEGORY_LIST)))
+      .then((data) => setCategories(data[keyType].slice(0, LIMIT_CATEGORY_LIST)))
       .catch((err) => console.log(err));
-  }, [filter, website, type]);
+  }, [filter, website, keyType]);
 
   return (
     <div>
@@ -22,6 +21,7 @@ function ListCategories(props) {
           data-testid={ `${strCategory}-category-filter` }
           type="button"
           key={ strCategory }
+          onClick={ () => dispatch({ type: 'FILTER_CATEGORY', payload: strCategory }) }
         >
           {strCategory}
         </button>
@@ -33,7 +33,7 @@ function ListCategories(props) {
 ListCategories.propTypes = {
   filter: propTypes.string.isRequired,
   website: propTypes.string.isRequired,
-  type: propTypes.string.isRequired,
+  keyType: propTypes.string.isRequired,
 };
 
 export default ListCategories;
