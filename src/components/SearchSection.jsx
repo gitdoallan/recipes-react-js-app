@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { usePath } from 'hookrouter';
-import fetchApi from '../services/api';
+import { fetchApi } from '../services/api';
 
 export default function SearchSection() {
   const [search, setSearch] = useState('');

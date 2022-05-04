@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 let url = '';
 const checkFilter = (param, search, website) => {
   const cases = {
@@ -11,12 +9,18 @@ const checkFilter = (param, search, website) => {
   return cases[param]();
 };
 
-const fetchApi = async (filter, search, website) => {
+export const fetchApi = async (filter, search, website) => {
   checkFilter(filter, search, website);
-  fetch(url); // avaliador não tá pegando o axios
-  return axios.get(url)
-    .then((res) => res.data)
+  return fetch(url)
+    .then((res) => res.json())
     .catch((err) => console.log(err));
 };
 
-export default fetchApi;
+export const fetchRandomRecipe = (isFood) => {
+  const urlRandomRecipe = {
+    '/foods': { res: 'https://www.themealdb.com/api/json/v1/1/random.php' },
+    '/drinks': { res: 'https://www.thecocktaildb.com/api/json/v1/1/random.php' },
+  };
+  return fetch(urlRandomRecipe[isFood ? '/foods' : '/drinks'].res)
+    .then((res) => res.json()).then((data) => data);
+};
