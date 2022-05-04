@@ -13,7 +13,7 @@ export default function receitasReducer(state = INITIAL_STATE, { type, payload }
     LOGIN: { ...state, ...payload },
     SEARCH: { ...state, ...payload },
     SLICE: { ...state, sliceResults: payload },
-    FILTER_CATEGORY: { ...state, filterByCategory: true, currentCategory: payload },
+    FILTER_CATEGORY: { ...state, ...payload },
   };
   return cases[type] || state;
 }

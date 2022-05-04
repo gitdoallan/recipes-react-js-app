@@ -1,12 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { LIMIT_CATEGORY_LIST } from '../helpers/magicNumbers';
 import { fetchApi } from '../services/api';
 
 function ListCategories({ filter, website, keyType }) {
   const dispatch = useDispatch();
+  const {
+    currentCategory, filterByCategory,
+  } = useSelector(({ receitasReducer }) => (receitasReducer));
   const [categories, setCategories] = useState([]);
+
+  const handleBtnClick = (category) => {
+    if (category === currentCategory) {
+      dispatch(
+        { type: 'FILTER_CATEGORY',
+          payload: {
+            currentCategory: category, filterByCategory: !filterByCategory } },
+      );
+    } else {
+      dispatch(
+        { type: 'FILTER_CATEGORY',
+          payload: {
+            currentCategory: category, filterByCategory: true } },
+      );
+    }
+  };
 
   useEffect(() => {
     fetchApi(filter, null, website)
@@ -21,7 +40,7 @@ function ListCategories({ filter, website, keyType }) {
           data-testid={ `${strCategory}-category-filter` }
           type="button"
           key={ strCategory }
-          onClick={ () => dispatch({ type: 'FILTER_CATEGORY', payload: strCategory }) }
+          onClick={ () => handleBtnClick(strCategory) }
         >
           {strCategory}
         </button>
