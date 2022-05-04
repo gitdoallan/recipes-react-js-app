@@ -6,6 +6,7 @@ const checkFilter = (param, search, website) => {
     firstLetter: () => { url = `https://www.${website}.com/api/json/v1/1/search.php?f=${search}`; },
     listCategories: () => { url = `https://www.${website}.com/api/json/v1/1/list.php?c=list`; },
     byCategory: () => { url = `https://www.${website}.com/api/json/v1/1/filter.php?c=${search}`; },
+    byId: () => { url = `https://www.${website}.com/api/json/v1/1/lookup.php?i=${search}`; },
   };
   return cases[param]();
 };
