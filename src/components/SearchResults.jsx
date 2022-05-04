@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchApi } from '../services/api';
 import { MAX_SEARCH_RESULTS } from '../helpers/magicNumbers';
+import Card from './Card';
 
 export default function SearchResults(
   { type, website, action, keyType, searchTerm, strId, strKey, strThumb },
@@ -42,18 +43,17 @@ export default function SearchResults(
       <h1>SearchResults</h1>
       <ul>
         {sliceResults && sliceResults.map((result, index) => (
-          <li data-testid={ `${index}-recipe-card` } key={ result[strId] }>
-            <Link to={ `/${type}/${result[strId]}` }>
-              <img
-                data-testid={ `${index}-card-img` }
-                alt={ result[strKey] }
-                src={ result[strThumb] }
-              />
-              <span data-testid={ `${index}-card-name` }>
-                { result[strKey] }
-              </span>
-            </Link>
-          </li>
+          <Card
+            key={ result[strId] }
+            id={ result[strId] }
+            title={ result[strKey] }
+            testIdRecipeCard={ `${index}-recipe-card` }
+            testIdcardImg={ `${index}-card-img` }
+            alt={ result[strKey] }
+            src={ result[strThumb] }
+            testIdTitle={ `${index}-card-name` }
+            type={ type }
+          />
         ))}
         {/* não utilizar ? junto com template literal nesse projeto... existe um bug na versão do lint que a trybe está utilizando.. as versões recentes já estão com esse bug corrigido. */}
       </ul>
