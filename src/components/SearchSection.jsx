@@ -26,7 +26,7 @@ export default function SearchSection() {
     }
     fetchApi(filter, search, url).then((data) => data[tag])
       .then((searchResults) => dispatch(
-        { type: 'SEARCH', payload: { search, searchResults } },
+        { type: 'SEARCH', payload: { search, searchResults, filterByCategory: false } },
       ))
       .catch((err) => console.log(err));
   };

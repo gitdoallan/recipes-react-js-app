@@ -2,6 +2,9 @@ import React from 'react';
 
 export default function RecipeFoodDetails() {
   return (
-    <div>RecipeFoodDetails</div>
+    <div>
+      <h1>RecipeFoodDetails</h1>
+
+    </div>
   );
 }

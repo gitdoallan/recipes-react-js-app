@@ -5,6 +5,7 @@ const checkFilter = (param, search, website) => {
     search: () => { url = `https://www.${website}.com/api/json/v1/1/search.php?s=${search}`; },
     firstLetter: () => { url = `https://www.${website}.com/api/json/v1/1/search.php?f=${search}`; },
     listCategories: () => { url = `https://www.${website}.com/api/json/v1/1/list.php?c=list`; },
+    byCategory: () => { url = `https://www.${website}.com/api/json/v1/1/filter.php?c=${search}`; },
   };
   return cases[param]();
 };
