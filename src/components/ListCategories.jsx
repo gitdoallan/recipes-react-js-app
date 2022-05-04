@@ -11,8 +11,18 @@ function ListCategories({ filter, website, keyType }) {
   } = useSelector(({ receitasReducer }) => (receitasReducer));
   const [categories, setCategories] = useState([]);
 
+  useEffect(() => {
+    console.log(currentCategory);
+  }, [currentCategory]);
+
   const handleBtnClick = (category) => {
-    if (category === currentCategory) {
+    if (category === 'all') {
+      dispatch(
+        { type: 'FILTER_CATEGORY',
+          payload: {
+            currentCategory: category, filterByCategory: false } },
+      );
+    } else if (category === currentCategory) {
       dispatch(
         { type: 'FILTER_CATEGORY',
           payload: {
@@ -35,6 +45,13 @@ function ListCategories({ filter, website, keyType }) {
 
   return (
     <div>
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ () => handleBtnClick('all') }
+      >
+        All
+      </button>
       {categories.map(({ strCategory }) => (
         <button
           data-testid={ `${strCategory}-category-filter` }
