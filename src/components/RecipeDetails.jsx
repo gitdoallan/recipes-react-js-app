@@ -33,7 +33,7 @@ export default function RecipeDetails({ website, keyType, title, image, keyId, t
       .reduce(
         (acc, e, index) => [...acc, recipeDetails[`strIngredient${index + 1}`]], [],
       )
-      .filter((e) => e !== '');
+      .filter((e) => e?.length > 0);
     setIngredientsArray(ingredientsReduce);
     console.log(ingredientsReduce);
   }, [recipeDetails, id]);
