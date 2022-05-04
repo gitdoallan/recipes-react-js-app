@@ -1,24 +1,22 @@
-import axios from 'axios';
-
 let url = '';
 const checkFilter = (param, search, website) => {
   const cases = {
     ingredient: () => { url = `https://www.${website}.com/api/json/v1/1/filter.php?i=${search}`; },
     search: () => { url = `https://www.${website}.com/api/json/v1/1/search.php?s=${search}`; },
     firstLetter: () => { url = `https://www.${website}.com/api/json/v1/1/search.php?f=${search}`; },
+    listCategories: () => { url = `https://www.${website}.com/api/json/v1/1/list.php?c=list`; },
   };
   return cases[param]();
 };
 
 export const fetchApi = async (filter, search, website) => {
   checkFilter(filter, search, website);
-  fetch(url); // avaliador não tá pegando o axios
-  return axios.get(url)
-    .then((res) => res.data)
+  return fetch(url)
+    .then((res) => res.json())
     .catch((err) => console.log(err));
 };
 
-export const fetchRandomRecipe = (isFood) => {
+export const fetchRandomRecipe = async (isFood) => {
   const urlRandomRecipe = {
     '/foods': { res: 'https://www.themealdb.com/api/json/v1/1/random.php' },
     '/drinks': { res: 'https://www.thecocktaildb.com/api/json/v1/1/random.php' },

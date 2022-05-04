@@ -1,7 +1,8 @@
 import React from 'react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import SearchResultsDrinks from '../../components/SearchResultsDrinks';
+import SearchResults from '../../components/SearchResults';
+import ListCategories from '../../components/ListCategories';
 
 export default function Drinks() {
   return (
@@ -10,7 +11,20 @@ export default function Drinks() {
         title="Drinks"
         searchActive
       />
-      <SearchResultsDrinks />
+      <ListCategories
+        filter="listCategories"
+        website="thecocktaildb"
+        type="drinks"
+      />
+      <SearchResults
+        website="thecocktaildb"
+        type="drinks"
+        keyType="drinks"
+        action="search"
+        strId="idDrink"
+        strKey="strDrink"
+        strThumb="strDrinkThumb"
+      />
       <Footer />
     </div>
   );
