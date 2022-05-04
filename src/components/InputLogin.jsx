@@ -5,6 +5,7 @@ import EmailValidator from 'email-validator';
 import Button from '@mui/material/Button';
 import FingerprintIcon from '@mui/icons-material/Fingerprint';
 import { setLocalStorage, getLocalStorage } from '../services/localStorage';
+import { PASSWORD_MINSIZE } from '../helpers/magicNumbers';
 
 export default function InputLogin() {
   const history = useHistory();
@@ -17,7 +18,6 @@ export default function InputLogin() {
 
   useEffect(() => {
     const validateEmail = EmailValidator.validate(getEmail);
-    const PASSWORD_MINSIZE = 6;
     const validatePassWord = getPassword.length > PASSWORD_MINSIZE;
     if (validateEmail && validatePassWord) {
       setBtnStatus(false);

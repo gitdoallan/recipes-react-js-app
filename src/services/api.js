@@ -16,7 +16,7 @@ export const fetchApi = async (filter, search, website) => {
     .catch((err) => console.log(err));
 };
 
-export const fetchRandomRecipe = (isFood) => {
+export const fetchRandomRecipe = async (isFood) => {
   const urlRandomRecipe = {
     '/foods': { res: 'https://www.themealdb.com/api/json/v1/1/random.php' },
     '/drinks': { res: 'https://www.thecocktaildb.com/api/json/v1/1/random.php' },
