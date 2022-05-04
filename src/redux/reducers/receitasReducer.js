@@ -5,7 +5,7 @@ export const INITIAL_STATE = {
   searchResults: [],
   sliceResults: [],
   filterByCategory: false,
-  currentCategory: '',
+  currentCategory: 'all',
 };
 
 export default function receitasReducer(state = INITIAL_STATE, { type, payload }) {
