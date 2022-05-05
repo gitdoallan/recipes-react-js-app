@@ -25,3 +25,17 @@ export const fetchRandomRecipe = async (isFood) => {
   return fetch(urlRandomRecipe[isFood ? '/foods' : '/drinks'].res)
     .then((res) => res.json()).then((data) => data);
 };
+
+export const fetchMealByIngredient = async () => {
+  const urlRecipeByIngredient = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+  const response = fetch(urlRecipeByIngredient);
+  const { meals } = await (await response).json();
+  return meals;
+};
+
+export const fetchDrinkByIngredient = async () => {
+  const urlDrinkByIngredient = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+  const response = fetch(urlDrinkByIngredient);
+  const { drinks } = await (await response).json();
+  return drinks;
+};
