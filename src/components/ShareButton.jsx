@@ -1,21 +1,24 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
-import { propTypes } from 'react-bootstrap/esm/Image';
+// import { Button } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 
-export default function ShareButton({ cardIndex }) {
+export default function ShareButton({ cardIndex, url }) {
+  console.log('URL....: ', url);
   return (
-    <Button
+    <button
       type="button"
       data-testid={ `${cardIndex}-horizontal-share-btn` }
+      src={ shareIcon }
     >
       <img src={ shareIcon } alt="Share" />
 
-    </Button>
+    </button>
   );
 }
 ShareButton.propTypes = {
-  cardIndex: propTypes.number,
+  cardIndex: PropTypes.number,
+  url: PropTypes.string.isRequired,
 };
 
 ShareButton.defaultProps = { cardIndex: 0 };

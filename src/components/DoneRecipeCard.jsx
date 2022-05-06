@@ -5,28 +5,32 @@ import ShareButton from './ShareButton';
 import '../styles/DoneRecipes.css';
 
 export default function DoneRecipeCard({ card, cardIndex }) {
-  const { id, type, area, category, alcoholicOrNot, doneDate, name, image, tags } = card;
+  const {
+    id, type, nationality, category, alcoholicOrNot, doneDate, name, image, tags,
+  } = card;
+  console.log('AREA.......: ', nationality);
   const firstTwoTags = Array.from(tags.toString().split(',').slice(0, 2));
+  const actualUrl = window.location.href.replace(/\/done-recipes/, `/${type}s/${id}`);
   const specificRecipeURL = `/${type}s/${id}`;
-  console.log('TWO TAGS.......: ', firstTwoTags);
+  console.log('TWO TAGS.......: ', tags);
+  console.log('Actual Url.....: ', actualUrl);
   return (
-    <div>
+    <div className="done-container">
       <div className="product-info">
         <div>
           <Link to={ specificRecipeURL }>
             <p data-testid={ `${cardIndex}-horizontal-name` }>{name}</p>
           </Link>
-          <ShareButton cardIndex={ cardIndex } />
-          <p>
+          <ShareButton { ...{ cardIndex, actualUrl } } />
+          <div>
             {firstTwoTags.map((tag, tagIndex) => (
               <p key={ tagIndex } data-testid={ `${cardIndex}-${tag}-horizontal-tag` }>
                 {tag}
                 {tagIndex === 0 ? ' - ' : ''}
               </p>))}
-          </p>
+          </div>
           <p data-testid={ `${cardIndex}-horizontal-top-text` }>
-            {area ? `${area} - ` : ''}
-            {category ? `${category}` : ''}
+            {(nationality && category) ? `${nationality} - ${category}` : ''}
             {alcoholicOrNot}
           </p>
           <p
@@ -51,15 +55,15 @@ export default function DoneRecipeCard({ card, cardIndex }) {
 
 DoneRecipeCard.propTypes = {
   card: propTypes.shape({
-    id: propTypes.number.isRequired,
-    type: propTypes.string.isRequired,
-    area: propTypes.string,
+    id: propTypes.string,
+    type: propTypes.string,
+    nationality: propTypes.string,
     category: propTypes.string,
     alcoholicOrNot: propTypes.string,
     doneDate: propTypes.string,
-    name: propTypes.string.isRequired,
-    image: propTypes.string.isRequired,
-    tags: propTypes.string.isRequired,
+    name: propTypes.string,
+    image: propTypes.string,
+    tags: propTypes.string,
   }).isRequired,
   cardIndex: propTypes.number.isRequired,
 };

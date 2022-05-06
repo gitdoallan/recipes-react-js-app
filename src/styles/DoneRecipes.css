@@ -1,7 +1,22 @@
-.product-image {
+.done-container {
+  height: 100%;
+  width: 100%;
+}
+
+.product-info {
   display: inline-block;
   height: 100%;
   overflow: hidden;
   position: relative;
-  width: 45%;
+  text-align: left;
+  width: 100%;
+}
+
+.product-image a img {
+  display: inline-block;
+  height: 300px;
+  margin: auto;
+  overflow: hidden;
+  position: relative;
+  width: 300px;
 }
