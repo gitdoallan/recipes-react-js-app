@@ -126,7 +126,13 @@ export default function RecipeDetails({ website, keyType, title, image, keyId, t
       </ul>
       <p data-testid="instructions">{recipeDetails.strInstructions}</p>
       <p data-testid="video">{recipeDetails.strYoutube}</p>
-      <button type="button" data-testid="start-recipe-btn">Start Recipe</button>
+      <button
+        className="start-recipe-btn"
+        type="button"
+        data-testid="start-recipe-btn"
+      >
+        Start Recipe
+      </button>
     </div>
   );
 }
