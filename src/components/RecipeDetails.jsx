@@ -12,6 +12,7 @@ export default function RecipeDetails({ website, keyType, title, image, keyId, t
 
   const { id } = useParams();
   useEffect(() => {
+    console.log(recipeDetails);
     fetchApi('byId', id, website)
       .then((data) => setRecipeDetails((data[keyType][0])))
       .catch((err) => console.log(err));
@@ -24,19 +25,23 @@ export default function RecipeDetails({ website, keyType, title, image, keyId, t
   }, [recipeDetails]);
 
   useEffect(() => {
-    console.log(related);
-  }, [related]);
-
-  useEffect(() => {
+    console.log(recipeDetails);
     const ingredientsReduce = Array(INGREDIENTS_MAXSIZE)
       .fill('')
       .reduce(
-        (acc, e, index) => [...acc, recipeDetails[`strIngredient${index + 1}`]], [],
+        (acc, e, index) => [
+          ...acc, {
+            ingredient: recipeDetails[`strIngredient${index + 1}`],
+            measure: recipeDetails[`strMeasure${index + 1}`] }], [],
       )
-      .filter((e) => e?.length > 0);
+      .filter(({ ingredient }) => ingredient?.length > 0);
     setIngredientsArray(ingredientsReduce);
     console.log(ingredientsReduce);
   }, [recipeDetails, id]);
+
+  useEffect(() => {
+    console.log(ingredientsArray);
+  }, [ingredientsArray]);
 
   return (
     <div id="recipe-details">
@@ -53,7 +58,7 @@ export default function RecipeDetails({ website, keyType, title, image, keyId, t
         Category:
         {' '}
         <span data-testid="recipe-category">
-          {recipeDetails.strCategory}
+          {type === 'drinks' ? recipeDetails.strAlcoholic : recipeDetails.strCategory}
         </span>
       </p>
       <h3>Recomendações:</h3>
@@ -98,16 +103,25 @@ export default function RecipeDetails({ website, keyType, title, image, keyId, t
             />
           </Link>
         </div>
+        FUNCIONA MAS NAO PASSA NO TESTE... DEPOIS DESCOMENTAMOS.
       ))} */}
       <h4>Ingredients:</h4>
       <ul>
-        {ingredientsArray.map((ingredient, index) => (
-          <li
-            data-testid={ `${index}-ingredient-name-and-measure` }
-            key={ `ingredient-${index}` }
-          >
-            {ingredient}
-          </li>
+        {ingredientsArray.map((element, index) => (
+          <div key={ `{ingredient-${index}}` }>
+            <li
+              data-testid={ `${index}-ingredient-name-and-measure` }
+              key={ `ingredient-${index}-1` }
+            >
+              {element.ingredient}
+            </li>
+            <li
+              data-testid={ `${index}-ingredient-name-and-measure` }
+              key={ `ingredient-${index}-2` }
+            >
+              {element.measure}
+            </li>
+          </div>
         ))}
       </ul>
       <p data-testid="instructions">{recipeDetails.strInstructions}</p>
