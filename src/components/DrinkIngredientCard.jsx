@@ -4,11 +4,12 @@ import { fetchDrinkByIngredient } from '../services/api';
 
 function DrinkIngredientCard() {
   const [ingredients, setIngredients] = useState([]);
-  const arrayLength = 12;
+  const ARRAY_LENGTH = 12;
 
   const cardIngredients = async () => {
     const ingredientsByApi = await fetchDrinkByIngredient();
-    setIngredients(ingredientsByApi);
+    const results = ingredientsByApi.slice(0, ARRAY_LENGTH);
+    setIngredients(results);
   };
 
   useEffect(() => {
@@ -18,9 +19,9 @@ function DrinkIngredientCard() {
   return (
     <div>
       {
-        ingredients.slice(0, arrayLength).map((card, index) => (
+        ingredients.map((card, index) => (
           <Link
-            to="/dinks"
+            to="/drinks"
             data-testid={ `${index}-ingredient-card` }
             key={ index }
           >
@@ -32,10 +33,8 @@ function DrinkIngredientCard() {
               <img
                 data-testid={ `${index}-card-img` }
                 alt={ card.strIngredient1 }
-                src={
-                  `www.thecocktaildb.com/images/ingredients/
-                  ${card.strIngredient1}.png`
-                }
+                src={ `https://www.thecocktaildb.com/images/ingredients/${card.strIngredient1}-Small.png
+                ` }
               />
             </div>
           </Link>

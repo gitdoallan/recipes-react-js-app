@@ -4,12 +4,12 @@ import { fetchMealByIngredient } from '../services/api';
 
 function FoodIngredientCard() {
   const [ingredients, setIngredients] = useState([]);
-  console.log(ingredients);
-  const arrayLength = 12;
+  const ARRAY_LENGTH = 12;
 
   const cardIngredients = async () => {
     const ingredientsByApi = await fetchMealByIngredient();
-    setIngredients(ingredientsByApi);
+    const results = ingredientsByApi.slice(0, ARRAY_LENGTH);
+    setIngredients(results);
   };
 
   useEffect(() => {
@@ -19,13 +19,12 @@ function FoodIngredientCard() {
   return (
     <div>
       {
-        ingredients.slice(0, arrayLength).map((card, index) => (
+        ingredients.map((card, index) => (
           <Link
             to="/foods"
             data-testid={ `${index}-ingredient-card` }
             key={ index }
           >
-            {console.log(ingredients)}
             <div
               key={ index }
               data-testid={ `${index}-card-name` }
