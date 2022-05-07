@@ -10,8 +10,8 @@ export default function DoneRecipeCard({ card, cardIndex }) {
   } = card;
   console.log('AREA.......: ', nationality);
   const firstTwoTags = Array.from(tags.toString().split(',').slice(0, 2));
-  const actualUrl = window.location.href.replace(/\/done-recipes/, `/${type}s/${id}`);
   const specificRecipeURL = `/${type}s/${id}`;
+  const actualUrl = window.location.href.replace(/\/done-recipes/, specificRecipeURL);
   console.log('TWO TAGS.......: ', tags);
   console.log('Actual Url.....: ', actualUrl);
   return (
