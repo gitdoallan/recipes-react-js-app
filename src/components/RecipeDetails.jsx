@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useHistory } from 'react-router-dom';
 import { fetchApi } from '../services/api';
 import { INGREDIENTS_MAXSIZE, RELATED_MAXSIZE } from '../helpers/magicNumbers';
 import { setLocalStorage, getLocalStorage } from '../services/localStorage';
@@ -14,6 +14,7 @@ export default function RecipeDetails(
   const [ingredientsArray, setIngredientsArray] = useState([]);
   const [onlyIngredients, setOnlyIngredients] = useState([]);
   const { id } = useParams();
+  const history = useHistory();
   const [showStartBtn, setShowStartBtn] = useState();
 
   useEffect(() => {
@@ -30,11 +31,11 @@ export default function RecipeDetails(
   const startRecipe = () => {
     setShowStartBtn({ ...showStartBtn, [id]: false });
     const local = getLocalStorage('inProgressRecipes');
-    console.log(onlyIngredients);
     setLocalStorage('inProgressRecipes',
       { ...local,
         [localStorageName]: {
           ...local?.[localStorageName], [id]: onlyIngredients } });
+    history.push(`/${type}/${id}/in-progress`);
   };
 
   useEffect(() => {

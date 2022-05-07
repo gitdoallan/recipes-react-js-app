@@ -27,18 +27,18 @@ export default function Routes() {
         <Route exact path="/foods" component={ Foods } />
         <Route exact path="/drinks" component={ Drinks } />
         <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
-        <Route path="/done-recipes" component={ DoneRecipes } />
-        <Route path="/profile" component={ Profile } />
-        <Route path="/drinks/:id/in-progress" component={ RecipeDrinkInProgress } />
-        <Route path="/drinks/:id" component={ RecipeDrinkDetails } />
-        <Route path="/explore/foods/ingredients" component={ FoodIngredients } />
-        <Route path="/explore/drinks/ingredients" component={ DrinkIngredients } />
+        <Route exact path="/done-recipes" component={ DoneRecipes } />
+        <Route exact path="/profile" component={ Profile } />
+        <Route exact path="/drinks/:id/in-progress" component={ RecipeDrinkInProgress } />
+        <Route exact path="/drinks/:id" component={ RecipeDrinkDetails } />
+        <Route exact path="/explore/foods/ingredients" component={ FoodIngredients } />
+        <Route exact path="/explore/drinks/ingredients" component={ DrinkIngredients } />
         <Route path="/explore/foods/nationalities" component={ FoodNationalities } />
         <Route exact path="/explore/foods" component={ ExploreFood } />
         <Route exact path="/explore/drinks" component={ ExploreDrinks } />
         <Route exact path="/explore" component={ Explore } />
-        <Route path="/foods/:id" component={ RecipeFoodDetails } />
-        <Route path="/foods/:id/in-progress" component={ RecipeFoodInProgress } />
+        <Route exact path="/foods/:id" component={ RecipeFoodDetails } />
+        <Route exact path="/foods/:id/in-progress" component={ RecipeFoodInProgress } />
         <Route component={ NotFound } />
       </Switch>
     </BrowserRouter>
