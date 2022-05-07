@@ -16,6 +16,7 @@ export default function RecipeDetails(
   const { id } = useParams();
   const history = useHistory();
   const [showStartBtn, setShowStartBtn] = useState();
+  const [linkCopied, setLinkCopied] = useState(false);
 
   useEffect(() => {
     const save = ingredientsArray.map((e) => e.ingredient);
@@ -36,6 +37,14 @@ export default function RecipeDetails(
         [localStorageName]: {
           ...local?.[localStorageName], [id]: onlyIngredients } });
     history.push(`/${type}/${id}/in-progress`);
+  };
+
+  const shareRecipe = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setLinkCopied(true);
+    setTimeout(() => {
+      setLinkCopied(false);
+    }, '1000');
   };
 
   useEffect(() => {
@@ -76,8 +85,15 @@ export default function RecipeDetails(
         src={ recipeDetails[image] }
         alt={ recipeDetails[title] }
       />
-      <button type="button" data-testid="share-btn">Share Recipe</button>
+      <button
+        onClick={ shareRecipe }
+        type="button"
+        data-testid="share-btn"
+      >
+        Share Recipe
+      </button>
       <button type="button" data-testid="favorite-btn">Favorite</button>
+      {linkCopied && <span>Link copied!</span>}
       <p>
         Category:
         {' '}
