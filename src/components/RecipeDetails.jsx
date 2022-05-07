@@ -4,15 +4,40 @@ import propTypes from 'prop-types';
 import { useParams, Link } from 'react-router-dom';
 import { fetchApi } from '../services/api';
 import { INGREDIENTS_MAXSIZE, RELATED_MAXSIZE } from '../helpers/magicNumbers';
+import { setLocalStorage, getLocalStorage } from '../services/localStorage';
 
-export default function RecipeDetails({ website, keyType, title, image, keyId, type }) {
+export default function RecipeDetails(
+  { website, keyType, title, image, keyId, type, localStorageName },
+) {
   const [recipeDetails, setRecipeDetails] = useState([]);
   const [related, setRelated] = useState([]);
   const [ingredientsArray, setIngredientsArray] = useState([]);
-
+  const [onlyIngredients, setOnlyIngredients] = useState([]);
   const { id } = useParams();
+  const [showStartBtn, setShowStartBtn] = useState();
+
   useEffect(() => {
-    console.log(recipeDetails);
+    const save = ingredientsArray.map((e) => e.ingredient);
+    setOnlyIngredients(save);
+  }, []);
+
+  useEffect(() => {
+    if (showStartBtn?.[id] === undefined) {
+      setShowStartBtn({ ...showStartBtn, [id]: true });
+    }
+  }, [id]);
+
+  const startRecipe = () => {
+    setShowStartBtn({ ...showStartBtn, [id]: false });
+    const local = getLocalStorage('inProgressRecipes');
+    console.log(onlyIngredients);
+    setLocalStorage('inProgressRecipes',
+      { ...local,
+        [localStorageName]: {
+          ...local?.[localStorageName], [id]: onlyIngredients } });
+  };
+
+  useEffect(() => {
     fetchApi('byId', id, website)
       .then((data) => setRecipeDetails((data[keyType][0])))
       .catch((err) => console.log(err));
@@ -25,7 +50,6 @@ export default function RecipeDetails({ website, keyType, title, image, keyId, t
   }, [recipeDetails]);
 
   useEffect(() => {
-    console.log(recipeDetails);
     const ingredientsReduce = Array(INGREDIENTS_MAXSIZE)
       .fill('')
       .reduce(
@@ -36,7 +60,6 @@ export default function RecipeDetails({ website, keyType, title, image, keyId, t
       )
       .filter(({ ingredient }) => ingredient?.length > 0);
     setIngredientsArray(ingredientsReduce);
-    console.log(ingredientsReduce);
   }, [recipeDetails, id]);
 
   useEffect(() => {
@@ -124,9 +147,22 @@ export default function RecipeDetails({ website, keyType, title, image, keyId, t
           </div>
         ))}
       </ul>
-      <p data-testid="instructions">{recipeDetails.strInstructions}</p>
-      <p data-testid="video">{recipeDetails.strYoutube}</p>
-      <button type="button" data-testid="start-recipe-btn">Start Recipe</button>
+      <p data-testid="instructions">{recipeDetails?.strInstructions}</p>
+      <p data-testid="video">{recipeDetails?.strYoutube}</p>
+
+      {showStartBtn?.[id]
+        && (
+          <button
+            className="start-recipe-btn"
+            type="button"
+            data-testid="start-recipe-btn"
+            onClick={ startRecipe }
+          >
+            {showStartBtn?.[id]
+        && !getLocalStorage('inProgressRecipes')?.[localStorageName]?.[id]
+              ? 'Start Recipe' : 'Continue Recipe' }
+          </button>)}
+
     </div>
   );
 }
@@ -138,4 +174,5 @@ RecipeDetails.propTypes = {
   image: propTypes.string.isRequired,
   keyId: propTypes.string.isRequired,
   type: propTypes.string.isRequired,
+  localStorageName: propTypes.string.isRequired,
 };

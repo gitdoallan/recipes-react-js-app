@@ -31,3 +31,12 @@
   bottom: 0;
   position: fixed;
 }
+
+.start-recipe-btn {
+  background-color: red;
+  bottom: 0;
+  color: white;
+  height: 100px;
+  position: fixed;
+  width: 150px;
+}
