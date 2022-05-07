@@ -34,7 +34,9 @@
 
 .start-recipe-btn {
   background-color: red;
-  bottom: 10px;
+  bottom: 0;
   color: white;
+  height: 100px;
   position: fixed;
+  width: 150px;
 }
