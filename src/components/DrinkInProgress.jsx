@@ -9,7 +9,7 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 // import blackHeartIcon from '../images/blackHeartIcon.svg';
 import SIZE_IN_PROGRESS from '../helpers/magicNumbers';
 
-export default function FoodInProgress() {
+export default function DrinkInProgress() {
   // const [foods, setFoods] = useState([]);
   // const [inProgressRecipes] = useLocalStorage(
   //   'inProgressRecipes', [twoDoneRecipes],
@@ -18,12 +18,11 @@ export default function FoodInProgress() {
 
   // useEffect(() => setFoods(inProgressRecipes), [inProgressRecipes]);
 
-  const ingredientsArray = ['Salt', 'Pepper', 'Egs', 'Cheese'];
+  const ingredientsArray = ['Rum', 'Limoncelo', 'Cachaça'];
 
   // const { food } = foods;
   // id, type, category, alcoholicOrNot, name, image } = food;
   const history = useHistory();
-  // const specificRecipeURL = `/${type}s/${id}`;
   const actualUrl = window.location.href.slice(SIZE_IN_PROGRESS);
 
   return (
@@ -73,7 +72,7 @@ export default function FoodInProgress() {
               element.ingredient
             </li>
             <li
-              data-testid="ingredient-step"
+              data-testid="ingredient-measure"
               key={ `${index}-ingredient-step` }
             >
               element.measure
