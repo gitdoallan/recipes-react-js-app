@@ -1,25 +1,45 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useHistory } from 'react-router-dom';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { fetchApi } from '../services/api';
 import { INGREDIENTS_MAXSIZE, RELATED_MAXSIZE } from '../helpers/magicNumbers';
 import { setLocalStorage, getLocalStorage } from '../services/localStorage';
 
 export default function RecipeDetails(
-  { website, keyType, title, image, keyId, type, localStorageName },
+  { website, keyType, title, image, keyId, type, localStorageName, favtype },
 ) {
   const [recipeDetails, setRecipeDetails] = useState([]);
   const [related, setRelated] = useState([]);
   const [ingredientsArray, setIngredientsArray] = useState([]);
   const [onlyIngredients, setOnlyIngredients] = useState([]);
-  const { id } = useParams();
   const [showStartBtn, setShowStartBtn] = useState();
+  const [linkCopied, setLinkCopied] = useState(false);
+  const [favoriteState, setFavoriteState] = useState([]);
+  const [favoriteStatus, setFavoriteStatus] = useState();
+  const { id } = useParams();
+  const history = useHistory();
 
   useEffect(() => {
     const save = ingredientsArray.map((e) => e.ingredient);
     setOnlyIngredients(save);
+    if (getLocalStorage('favoriteRecipes') === null) {
+      setLocalStorage('favoriteRecipes', []);
+    }
+    setFavoriteState(getLocalStorage('favoriteRecipes'));
   }, []);
+
+  useEffect(() => {
+    const find = favoriteState.find((e) => e.id === id);
+    setFavoriteStatus(find);
+  }, [favoriteState, id]);
+
+  useEffect(() => {
+    setLocalStorage('favoriteRecipes', favoriteState);
+    console.log(getLocalStorage('favoriteRecipes'));
+  }, [favoriteState]);
 
   useEffect(() => {
     if (showStartBtn?.[id] === undefined) {
@@ -27,14 +47,44 @@ export default function RecipeDetails(
     }
   }, [id]);
 
+  const favoriteAction = () => {
+    const { strArea, strCategory, strAlcoholic } = recipeDetails;
+    const alcoholicOrNot = type === 'drinks' ? strAlcoholic : '';
+    const nationality = strArea || '';
+    const currentFavorite = {
+      id,
+      type: favtype,
+      nationality,
+      category: strCategory,
+      alcoholicOrNot,
+      name: recipeDetails[title],
+      image: recipeDetails[image],
+    };
+    setFavoriteState([...favoriteState, currentFavorite]);
+    setFavoriteStatus(true);
+  };
+
+  const favoriteRemove = () => {
+    const removeFav = favoriteState.filter((e) => e.id !== id);
+    setFavoriteState(removeFav);
+  };
+
   const startRecipe = () => {
     setShowStartBtn({ ...showStartBtn, [id]: false });
     const local = getLocalStorage('inProgressRecipes');
-    console.log(onlyIngredients);
     setLocalStorage('inProgressRecipes',
       { ...local,
         [localStorageName]: {
           ...local?.[localStorageName], [id]: onlyIngredients } });
+    history.push(`/${type}/${id}/in-progress`);
+  };
+
+  const shareRecipe = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setLinkCopied(true);
+    setTimeout(() => {
+      setLinkCopied(false);
+    }, '1000');
   };
 
   useEffect(() => {
@@ -44,9 +94,11 @@ export default function RecipeDetails(
   }, [id, website, keyType]);
 
   useEffect(() => {
-    fetchApi('byCategory', recipeDetails.strCategory, website)
-      .then((data) => setRelated(data[keyType].slice(0, RELATED_MAXSIZE)))
-      .catch((err) => console.log(err));
+    if (recipeDetails.strCategory) {
+      fetchApi('byCategory', recipeDetails.strCategory, website)
+        .then((data) => setRelated(data[keyType].slice(0, RELATED_MAXSIZE)))
+        .catch((err) => console.log(err));
+    }
   }, [recipeDetails]);
 
   useEffect(() => {
@@ -62,10 +114,6 @@ export default function RecipeDetails(
     setIngredientsArray(ingredientsReduce);
   }, [recipeDetails, id]);
 
-  useEffect(() => {
-    console.log(ingredientsArray);
-  }, [ingredientsArray]);
-
   return (
     <div id="recipe-details">
       <h1>RecipeDetails</h1>
@@ -75,13 +123,34 @@ export default function RecipeDetails(
         src={ recipeDetails[image] }
         alt={ recipeDetails[title] }
       />
-      <button type="button" data-testid="share-btn">Share Recipe</button>
-      <button type="button" data-testid="favorite-btn">Favorite</button>
+      <button
+        onClick={ shareRecipe }
+        type="button"
+        data-testid="share-btn"
+      >
+        Share Recipe
+      </button>
+      <button
+        className="favoriteBtn"
+        type="button"
+        data-testid="favorite-btn"
+        src={ favoriteStatus ? blackHeartIcon : whiteHeartIcon }
+        onClick={ favoriteStatus ? favoriteRemove : favoriteAction }
+      >
+        <img
+          alt="Favorite"
+          // src={ favoriteStatus ? blackHeartIcon : whiteHeartIcon }
+          // o teste tá pedindo src no button ao invés de na imagem... tirar e botar aqui depois.
+        />
+      </button>
+      {linkCopied && <span>Link copied!</span>}
       <p>
         Category:
         {' '}
         <span data-testid="recipe-category">
-          {type === 'drinks' ? recipeDetails.strAlcoholic : recipeDetails.strCategory}
+          {recipeDetails?.strAlcoholic}
+          {' '}
+          {recipeDetails?.strCategory}
         </span>
       </p>
       <h3>Recomendações:</h3>
@@ -126,7 +195,7 @@ export default function RecipeDetails(
             />
           </Link>
         </div>
-        FUNCIONA MAS NAO PASSA NO TESTE... DEPOIS DESCOMENTAMOS.
+        // FUNCIONA MAS NAO PASSA NO TESTE... DEPOIS DESCOMENTAMOS.
       ))} */}
       <h4>Ingredients:</h4>
       <ul>
@@ -175,4 +244,5 @@ RecipeDetails.propTypes = {
   keyId: propTypes.string.isRequired,
   type: propTypes.string.isRequired,
   localStorageName: propTypes.string.isRequired,
+  favtype: propTypes.string.isRequired,
 };

@@ -40,3 +40,8 @@
   position: fixed;
   width: 150px;
 }
+
+.favoriteBtn {
+  background: none;
+  border: none;
+}
