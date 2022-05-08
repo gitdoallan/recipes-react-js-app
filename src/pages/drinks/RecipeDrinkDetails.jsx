@@ -8,6 +8,7 @@ export default function RecipeDrinkDetails() {
       <RecipeDetails
         website="thecocktaildb"
         type="drinks"
+        favtype="drink"
         localStorageName="cocktails"
         keyType="drinks"
         keyId="idDrink"

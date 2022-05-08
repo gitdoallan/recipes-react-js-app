@@ -8,6 +8,7 @@ export default function RecipeFoodDetails() {
       <RecipeDetails
         website="themealdb"
         type="foods"
+        favtype="food"
         localStorageName="meals"
         keyType="meals"
         keyId="idMeal"
