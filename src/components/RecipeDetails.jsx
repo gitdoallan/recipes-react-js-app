@@ -15,6 +15,7 @@ export default function RecipeDetails(
   const [ingredientsArray, setIngredientsArray] = useState([]);
   const [onlyIngredients, setOnlyIngredients] = useState([]);
   const [showStartBtn, setShowStartBtn] = useState();
+  const [isFinished, setIsFinished] = useState(false);
   const history = useHistory();
   const { id } = useParams();
 
@@ -27,6 +28,8 @@ export default function RecipeDetails(
   useEffect(() => {
     const save = ingredientsArray.map((e) => e.ingredient);
     setOnlyIngredients(save);
+    const findId = getLocalStorage('doneRecipes')?.find((e) => e.id === id);
+    setIsFinished(findId);
   }, []);
 
   const startRecipe = () => {
@@ -113,7 +116,9 @@ export default function RecipeDetails(
       <p data-testid="instructions">{recipeDetails?.strInstructions}</p>
       <p data-testid="video">{recipeDetails?.strYoutube}</p>
 
-      {showStartBtn?.[id]
+      {console.log(!getLocalStorage('doneRecipes')?.[id])}
+
+      {showStartBtn?.[id] && !isFinished
         && (
           <button
             className="start-recipe-btn"
