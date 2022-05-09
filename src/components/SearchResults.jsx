@@ -30,7 +30,7 @@ export default function SearchResults(
     if (searchResults?.length > 1) {
       dispatch({ type: 'SLICE', payload: searchResults.slice(0, MAX_SEARCH_RESULTS) });
     }
-    if (searchResults?.length === 0 && action === 'search' && searchTerm.length > 0) {
+    if (!searchResults && action === 'search') {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
   }, [searchResults, history, search, dispatch, type, strKey, searchTerm, action, strId]);
