@@ -2,7 +2,7 @@ import React from 'react';
 // import React, { useState, useEffect } from 'react';
 // import useLocalStorage from 'use-local-storage-state';
 // import { Button, Form } from 'react-bootstrap';
-// import Header from '../components/Header';
+import Header from '../components/Header';
 // import DoneRecipeCard from '../components/DoneRecipeCard';
 // import { twoDoneRecipes } from '../services/mockApi';
 // // import { includeDoneRecipe } from '../services/localStorage';
@@ -36,13 +36,13 @@ export default function DoneRecipes() {
   //     }));
 
   return (
-    <h1>DoneRecipes</h1>
-  //     <>
-  //       <Header
-  //         title="Done Recipes"
-  //         searchActive={ false }
-  //       />
-  //       <main>
+    <>
+      <h1>DoneRecipes</h1>
+      <Header
+        title="Done Recipes"
+        searchActive={ false }
+      />
+      {/* //       <main>
   //         <Form>
   //           <Button
   //             variant="outline-secondary"
@@ -67,7 +67,7 @@ export default function DoneRecipes() {
   //           </Button>
   //         </Form>
   //         <div className="done-recipe">{cardsOnScreen(foods)}</div>
-  //       </main>
-  //     </>
+  //       </main> */}
+    </>
   );
 }
