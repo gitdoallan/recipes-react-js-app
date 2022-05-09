@@ -1,15 +1,18 @@
 import React from 'react';
+import propTypes from 'prop-types';
 // import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
-// import useLocalStorage from 'use-local-storage-state';
+import useLocalStorage from 'use-local-storage-state';
+import { getLocalStorage } from '../services/localStorage';
 import ShareBtnProgress from './ShareBtnProgress';
 import { twoDoneRecipes } from '../services/mockApi';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 // import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { SIZE_IN_PROGRESS } from '../helpers/magicNumbers';
 
-export default function FoodInProgress() {
+export default function RecipeInProgress({ type }) {
+  console.log(getLocalStorage('inProgressRecipes'));
   // const [foods, setFoods] = useState([]);
   // const [inProgressRecipes] = useLocalStorage(
   //   'inProgressRecipes', [twoDoneRecipes],
@@ -25,6 +28,14 @@ export default function FoodInProgress() {
   const history = useHistory();
   // const specificRecipeURL = `/${type}s/${id}`;
   const actualUrl = window.location.href.slice(SIZE_IN_PROGRESS);
+  const foodType = {
+    meals: 'meals',
+    drinks: 'cocktails',
+  };
+  const fT = foodType[type];
+  const [
+    inProgress, setInProgress,
+  ] = useLocalStorage('inProgressRecipes', { [fT]: { [id]: [] } });
 
   return (
     <main className="recipe-details">
@@ -97,3 +108,7 @@ export default function FoodInProgress() {
     </main>
   );
 }
+
+RecipeInProgress.propTypes = {
+  type: propTypes.string.isRequired,
+};

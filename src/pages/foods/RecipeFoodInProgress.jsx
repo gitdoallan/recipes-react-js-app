@@ -1,10 +1,10 @@
 import React from 'react';
-import FoodInProgress from '../../components/FoodInProgress';
+import RecipeInProgress from '../../components/RecipeInProgress';
 
 export default function RecipeFoodInProgress() {
   return (
     <div>
-      <FoodInProgress />
+      <RecipeInProgress type="meals" />
     </div>
   );
 }

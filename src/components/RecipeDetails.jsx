@@ -13,9 +13,9 @@ export default function RecipeDetails(
 ) {
   const [recipeDetails, setRecipeDetails] = useState([]);
   const [ingredientsArray, setIngredientsArray] = useState([]);
-  const [onlyIngredients, setOnlyIngredients] = useState([]);
   const [showStartBtn, setShowStartBtn] = useState();
   const [isFinished, setIsFinished] = useState(false);
+  const [ingredientsOnlyReduce, setIngredientsOnlyReduce] = useState([]);
   const history = useHistory();
   const { id } = useParams();
 
@@ -26,8 +26,6 @@ export default function RecipeDetails(
   }, [id]);
 
   useEffect(() => {
-    const save = ingredientsArray.map((e) => e.ingredient);
-    setOnlyIngredients(save);
     const findId = getLocalStorage('doneRecipes')?.find((e) => e.id === id);
     setIsFinished(findId);
   }, []);
@@ -38,7 +36,7 @@ export default function RecipeDetails(
     setLocalStorage('inProgressRecipes',
       { ...local,
         [localStorageName]: {
-          ...local?.[localStorageName], [id]: onlyIngredients } });
+          ...local?.[localStorageName], [id]: ingredientsOnlyReduce } });
     history.push(`/${type}/${id}/in-progress`);
   };
 
@@ -59,6 +57,17 @@ export default function RecipeDetails(
       )
       .filter(({ ingredient }) => ingredient?.length > 0);
     setIngredientsArray(ingredientsReduce);
+    const genIngredientsOnlyReduce = Array(INGREDIENTS_MAXSIZE)
+      .fill('')
+      .reduce(
+        (acc, e, index) => [
+          ...acc, {
+            ingredient: recipeDetails[`strIngredient${index + 1}`],
+          }], [],
+      )
+      .filter(({ ingredient }) => ingredient?.length > 0)
+      .map((e) => e.ingredient);
+    setIngredientsOnlyReduce(genIngredientsOnlyReduce);
   }, [recipeDetails, id]);
 
   return (
