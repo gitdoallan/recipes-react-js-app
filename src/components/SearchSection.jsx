@@ -7,13 +7,14 @@ export default function SearchSection() {
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState('ingredient');
   const [website, setWebsite] = useState('');
-  const path = usePath();
+  const currentPath = usePath();
+  const path = currentPath.replace('/', '');
   const dispatch = useDispatch();
 
   useEffect(() => {
     const cases = {
-      '/foods': () => setWebsite({ url: 'themealdb', tag: 'meals' }),
-      '/drinks': () => setWebsite({ url: 'thecocktaildb', tag: 'drinks' }),
+      foods: () => setWebsite({ url: 'themealdb', tag: 'meals' }),
+      drinks: () => setWebsite({ url: 'thecocktaildb', tag: 'drinks' }),
     };
     return cases[path] && cases[path]();
   }, [path]);

@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import propTypes from 'prop-types';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import { setLocalStorage, getLocalStorage } from '../services/localStorage';
 
-export default function RecipeDetailsFavorite({ recipeDetails, favtype }) {
+export default function Favorite(
+  { recipeDetails, favtype, id, type, title, image },
+) {
   const [favoriteState, setFavoriteState] = useState([]);
   const [favoriteStatus, setFavoriteStatus] = useState();
-  const { id } = useParams();
 
   useEffect(() => {
     if (getLocalStorage('favoriteRecipes') === null) {
@@ -47,34 +49,28 @@ export default function RecipeDetailsFavorite({ recipeDetails, favtype }) {
   };
 
   return (
-    <button
-      className="favoriteBtn"
-      type="button"
-      data-testid="favorite-btn"
-      src={ favoriteStatus ? blackHeartIcon : whiteHeartIcon }
-      onClick={ favoriteStatus ? favoriteRemove : favoriteAction }
-    >
-      <img
-        alt="Favorite"
+    <div>
+      <button
+        className="favoriteBtn"
+        type="button"
+        data-testid="favorite-btn"
         src={ favoriteStatus ? blackHeartIcon : whiteHeartIcon }
-      />
-    </button>
+        onClick={ favoriteStatus ? favoriteRemove : favoriteAction }
+      >
+        <img
+          alt="Favorite"
+          src={ favoriteStatus ? blackHeartIcon : whiteHeartIcon }
+        />
+      </button>
+    </div>
   );
 }
 
-RecipeDetailsFavorite.propTypes = {
-  recipeDetails: propTypes.shape({
-    id: propTypes.string.isRequired,
-    type: propTypes.string.isRequired,
-    title: propTypes.string.isRequired,
-    image: propTypes.string.isRequired,
-    localStorageName: propTypes.string.isRequired,
-    keyType: propTypes.string.isRequired,
-    keyId: propTypes.string.isRequired,
-    strArea: propTypes.string.isRequired,
-    strCategory: propTypes.string.isRequired,
-    strAlcoholic: propTypes.string.isRequired,
-    favtype: propTypes.string.isRequired,
-  }).isRequired,
+Favorite.propTypes = {
+  recipeDetails: propTypes.oneOfType([propTypes.object, propTypes.array]).isRequired,
   favtype: propTypes.string.isRequired,
+  id: propTypes.string.isRequired,
+  type: propTypes.string.isRequired,
+  title: propTypes.string.isRequired,
+  image: propTypes.string.isRequired,
 };
