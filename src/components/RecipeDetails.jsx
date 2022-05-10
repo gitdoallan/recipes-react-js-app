@@ -23,6 +23,12 @@ export default function RecipeDetails(
     if (showStartBtn?.[id] === undefined) {
       setShowStartBtn({ ...showStartBtn, [id]: true });
     }
+    if (!getLocalStorage('recipeDetails')?.[id]) {
+      setLocalStorage('recipeDetails', { [id]: recipeDetails });
+    } else {
+      const local = getLocalStorage('recipeDetails');
+      setRecipeDetails(local, { ...local, [id]: recipeDetails });
+    }
   }, [id]);
 
   useEffect(() => {
@@ -124,8 +130,6 @@ export default function RecipeDetails(
       </ul>
       <p data-testid="instructions">{recipeDetails?.strInstructions}</p>
       <p data-testid="video">{recipeDetails?.strYoutube}</p>
-
-      {console.log(!getLocalStorage('doneRecipes')?.[id])}
 
       {showStartBtn?.[id] && !isFinished
         && (
