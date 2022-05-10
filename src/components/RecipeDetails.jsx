@@ -20,18 +20,6 @@ export default function RecipeDetails(
   const { id } = useParams();
 
   useEffect(() => {
-    if (showStartBtn?.[id] === undefined) {
-      setShowStartBtn({ ...showStartBtn, [id]: true });
-    }
-    if (!getLocalStorage('recipeDetails')?.[id]) {
-      setLocalStorage('recipeDetails', { [id]: recipeDetails });
-    } else {
-      const local = getLocalStorage('recipeDetails');
-      setRecipeDetails(local, { ...local, [id]: recipeDetails });
-    }
-  }, [id]);
-
-  useEffect(() => {
     const findId = getLocalStorage('doneRecipes')?.find((e) => e.id === id);
     setIsFinished(findId);
   }, []);
@@ -74,6 +62,16 @@ export default function RecipeDetails(
       .filter(({ ingredient }) => ingredient?.length > 0)
       .map((e) => e.ingredient);
     setIngredientsOnlyReduce(genIngredientsOnlyReduce);
+
+    if (showStartBtn?.[id] === undefined) {
+      setShowStartBtn({ ...showStartBtn, [id]: true });
+    }
+    if (getLocalStorage('recipeDetails') === null) {
+      setLocalStorage('recipeDetails', { [id]: recipeDetails });
+    }
+    console.log(recipeDetails);
+    const local = getLocalStorage('recipeDetails');
+    setLocalStorage('recipeDetails', { ...local, [id]: recipeDetails });
   }, [recipeDetails, id]);
 
   return (
