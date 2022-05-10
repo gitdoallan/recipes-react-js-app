@@ -8,10 +8,10 @@ export default function InProgressRecipes({ type }) {
   const history = useHistory();
   useEffect(() => {
     if (getLocalStorage('inProgressRecipes') === null) {
-      history.push('/');
+      setFavorites(favorites);
     }
     setFavorites(getLocalStorage('inProgressRecipes'));
-  }, [history]);
+  }, [favorites]);
 
   useEffect(() => {
     console.log(favorites);
@@ -28,8 +28,13 @@ export default function InProgressRecipes({ type }) {
       <p data-testid="share-btn">share-btn</p>
       <p data-testid="favorite-btn">favorite-btn</p>
       <p data-testid="recipe-category">recipe-category</p>
-      {Array(type === 'drinks' ? FILLERDRINKS : FILLERFOOD).fill('').map((e, index) => (
-        <p key={ index } data-testid={ `${index}-ingredient-step` }>ingredient</p>
+
+      {Array(type === 'drinks' ? FILLERDRINKS : FILLERFOOD).fill('ar').map((e, index) => (
+        <input
+          key={ `${e}-${index}` }
+          type="checkbox"
+          data-testid="ingredient-step"
+        />
       ))}
       <p data-testid="instructions">instructions</p>
       <button
