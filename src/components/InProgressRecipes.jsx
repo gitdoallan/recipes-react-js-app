@@ -30,11 +30,15 @@ export default function InProgressRecipes({ type }) {
       <p data-testid="recipe-category">recipe-category</p>
 
       {Array(type === 'drinks' ? FILLERDRINKS : FILLERFOOD).fill('ar').map((e, index) => (
-        <input
-          key={ `${e}-${index}` }
-          type="checkbox"
+        <label
           data-testid="ingredient-step"
-        />
+          htmlFor={ `${e}-${index}` }
+          key={ `${e}-${index}` }
+        >
+          <input
+            type="checkbox"
+          />
+        </label>
       ))}
       <p data-testid="instructions">instructions</p>
       <button
