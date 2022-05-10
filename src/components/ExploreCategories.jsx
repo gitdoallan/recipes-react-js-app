@@ -6,18 +6,18 @@ export default function ExploreCategories() {
   return (
     <div>
       <button
-        data-testid="foods-category-filter"
+        data-testid="explore-foods"
         onClick={ () => history.push('/explore/foods') }
         type="button"
       >
-        Foods
+        Explore Foods
       </button>
       <button
-        data-testid="drinks-category-filter"
+        data-testid="explore-drinks"
         type="button"
         onClick={ () => history.push('/explore/drinks') }
       >
-        Drinks
+        Explore Drinks
       </button>
     </div>
   );
