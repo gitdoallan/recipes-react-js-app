@@ -22,7 +22,7 @@ export default function RecipeDetails(
   useEffect(() => {
     const findId = getLocalStorage('doneRecipes')?.find((e) => e.id === id);
     setIsFinished(findId);
-  }, []);
+  }, [id]);
 
   const startRecipe = () => {
     setShowStartBtn({ ...showStartBtn, [id]: false });
@@ -72,7 +72,7 @@ export default function RecipeDetails(
     console.log(recipeDetails);
     const local = getLocalStorage('recipeDetails');
     setLocalStorage('recipeDetails', { ...local, [id]: recipeDetails });
-  }, [recipeDetails, id]);
+  }, [recipeDetails, id, showStartBtn]);
 
   return (
     <div id="recipe-details">
