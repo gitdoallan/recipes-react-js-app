@@ -4,9 +4,12 @@ import Header from '../components/Header';
 import blackHeart from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import clipBoard from '../services/clipBoard';
-import { getLocalStorage } from '../services/localStorage';
+import { getLocalStorage, setLocalStorage } from '../services/localStorage';
 
 export default function FavoriteRecipes() {
+  if (getLocalStorage('favoriteRecipes') === null) {
+    setLocalStorage('favoriteRecipes', []);
+  }
   const lSFavoriteRecipes = getLocalStorage('favoriteRecipes');
   const [filterFoodAndDrinks, setFilterFoodAndDrinks] = useState(lSFavoriteRecipes);
   const [copied, setCopied] = useState(false);
