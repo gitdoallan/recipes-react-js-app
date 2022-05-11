@@ -5,7 +5,6 @@ export default function Login() {
   return (
     <div>
       <InputLogin />
-      {/* <InputLoginMUI /> */}
     </div>
   );
 }

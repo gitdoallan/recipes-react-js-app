@@ -1,44 +1,49 @@
-import React, { useState } from 'react';
-import propTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import profileIcon from '../images/profileIcon.svg';
-import searchIcon from '../images/searchIcon.svg';
-import SearchSection from './SearchSection';
+/* eslint-disable react/jsx-max-depth */
+import React from 'react';
+import Box from '@mui/material/Box';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import Typography from '@mui/material/Typography';
+import SearchIcon from '@mui/icons-material/Search';
+import * as S from '../styles/Header';
 
-export default function Header(props) {
-  const { title, searchActive } = props;
-  const [showSearchInput, setShowSearchInput] = useState(false);
-
-  const toggleSearchInput = () => {
-    setShowSearchInput(!showSearchInput);
-  };
-
+export default function HeaderMUI() {
   return (
-    <div className="header">
-      <Link to="/profile">
-        <img
-          alt="Profile"
-          data-testid="profile-top-btn"
-          src={ profileIcon }
-        />
-      </Link>
-      <h1 data-testid="page-title">{title}</h1>
-      {searchActive
-      && (
-        <button type="button" onClick={ toggleSearchInput }>
-          <img
-            alt="Search"
-            src={ searchIcon }
-            data-testid="search-top-btn"
-          />
-        </button>
-      )}
-      {showSearchInput && <SearchSection />}
-    </div>
+    <Box sx={ { flexGrow: 1 } }>
+      <AppBar position="static" color="secondary">
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="open drawer"
+            sx={ { mr: 2 } }
+          >
+            <ManageAccountsIcon />
+          </IconButton>
+          <Typography
+            variant="h6"
+            align="center"
+            noWrap
+            component="div"
+            sx={ { flexGrow: 1, display: { xs: 'none', sm: 'block' } } }
+          >
+            Foods
+          </Typography>
+          <S.Search>
+            <S.SearchIconWrapper>
+              <SearchIcon />
+            </S.SearchIconWrapper>
+            <S.StyledInputBase
+              placeholder="Search…"
+              data-testid="search-top-btn"
+              inputProps={ { 'aria-label': 'search' } }
+            />
+          </S.Search>
+        </Toolbar>
+      </AppBar>
+    </Box>
   );
 }
-
-Header.propTypes = {
-  title: propTypes.string.isRequired,
-  searchActive: propTypes.bool.isRequired,
-};
