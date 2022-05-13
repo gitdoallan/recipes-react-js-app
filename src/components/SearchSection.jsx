@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { usePath } from 'hookrouter';
+import SearchIcon from '@mui/icons-material/Search';
+import { Search, SearchIconWrapper, StyledInputBase } from '../styles/Header';
 import { fetchApi } from '../services/api';
 
 export default function SearchSection() {
@@ -33,15 +35,21 @@ export default function SearchSection() {
   };
 
   return (
-    <div>
-      <form onSubmit={ handleSearch }>
-        <input
+    <>
+      <Search>
+        <SearchIconWrapper>
+          <SearchIcon />
+        </SearchIconWrapper>
+        <StyledInputBase
+          onKeyDown={ (e) => e.key === 'Enter' && handleSearch(e) }
           onChange={ (e) => setSearch(e.target.value) }
           value={ search }
-          type="text"
-          placeholder="Search..."
-          data-testid="search-input"
+          placeholder="Search…"
+          data-testid="search-top-btn"
+          inputProps={ { 'aria-label': 'search' } }
         />
+      </Search>
+      <form onSubmit={ handleSearch }>
         <label htmlFor="ingredient-search-radio">
           <input
             type="radio"
@@ -75,6 +83,6 @@ export default function SearchSection() {
         </label>
         <button data-testid="exec-search-btn" type="submit">Search</button>
       </form>
-    </div>
+    </>
   );
 }

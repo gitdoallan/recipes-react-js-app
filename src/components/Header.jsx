@@ -8,8 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Typography from '@mui/material/Typography';
-import SearchIcon from '@mui/icons-material/Search';
-import { Search, SearchIconWrapper, StyledInputBase } from '../styles/Header';
+import SearchSection from './SearchSection';
 
 export default function HeaderMUI({ title, searchActive }) {
   return (
@@ -34,18 +33,7 @@ export default function HeaderMUI({ title, searchActive }) {
             { title }
           </Typography>
           <Box sx={ { flexGrow: 1 } } />
-          { searchActive && (
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                data-testid="search-top-btn"
-                inputProps={ { 'aria-label': 'search' } }
-              />
-            </Search>
-          ) }
+          { searchActive && <SearchSection /> }
           <IconButton
             size="large"
             edge="end"
