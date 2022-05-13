@@ -8,7 +8,6 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -88,15 +87,6 @@ export default function HeaderMUI({ title, searchActive }) {
             </Typography>
             <Box sx={ { flexGrow: 1 } } />
             { searchActive && <SearchSection /> }
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-haspopup="true"
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
           </Toolbar>
         </AppBar>
       </Box>
