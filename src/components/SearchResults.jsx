@@ -40,7 +40,6 @@ export default function SearchResults(
   }, [sliceResults]);
   return (
     <div className="search-results">
-      <h1>SearchResults</h1>
       <ul>
         {sliceResults && sliceResults.map((result, index) => (
           <Card
