@@ -1,18 +1,17 @@
 /* eslint-disable react/jsx-max-depth */
 import React from 'react';
+import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import MenuIcon from '@mui/icons-material/Menu';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 import Typography from '@mui/material/Typography';
 import SearchIcon from '@mui/icons-material/Search';
-import propTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
-import * as S from '../styles/Header';
+import { Search, SearchIconWrapper, StyledInputBase } from '../styles/Header';
 
-export default function Header({ title, searchActive }) {
-  const history = useHistory();
+export default function HeaderMUI({ title, searchActive }) {
   return (
     <Box sx={ { flexGrow: 1 } }>
       <AppBar position="static" color="secondary">
@@ -25,36 +24,45 @@ export default function Header({ title, searchActive }) {
             onClick={ () => history.push('/profile') }
             sx={ { mr: 2 } }
           >
-            <ManageAccountsIcon />
+            <MenuIcon />
           </IconButton>
           <Typography
             variant="h6"
-            align="center"
             noWrap
             component="div"
-            sx={ { flexGrow: 1 } }
+            sx={ { display: { xs: 'none', sm: 'block' } } }
           >
-            {title}
+            { title }
           </Typography>
-          {searchActive
-      && (
-        <S.Search>
-          <S.SearchIconWrapper>
-            <SearchIcon />
-          </S.SearchIconWrapper>
-          <S.StyledInputBase
-            placeholder="Search…"
-            inputProps={ { 'aria-label': 'search' } }
-          />
-        </S.Search>
-      )}
+          <Box sx={ { flexGrow: 1 } } />
+          { searchActive && (
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                data-testid="search-top-btn"
+                inputProps={ { 'aria-label': 'search' } }
+              />
+            </Search>
+          ) }
+          <IconButton
+            size="large"
+            edge="end"
+            aria-label="account of current user"
+            aria-haspopup="true"
+            color="inherit"
+          >
+            <AccountCircle />
+          </IconButton>
         </Toolbar>
       </AppBar>
     </Box>
   );
 }
 
-Header.propTypes = {
-  title: propTypes.string.isRequired,
-  searchActive: propTypes.bool.isRequired,
+HeaderMUI.propTypes = {
+  title: PropTypes.string.isRequired,
+  searchActive: PropTypes.bool.isRequired,
 };

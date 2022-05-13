@@ -15,6 +15,7 @@ export default function Foods() {
         title="Foods"
         searchActive
       />
+
       <ListCategories
         filter="listCategories"
         website="themealdb"
