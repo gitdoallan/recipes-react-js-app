@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { usePath } from 'hookrouter';
+import SearchIcon from '@mui/icons-material/Search';
+import Button from '@mui/material/Button';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import { Search, StyledInputBase } from '../styles/Header';
 import { fetchApi } from '../services/api';
 
 export default function SearchSection() {
@@ -33,48 +40,41 @@ export default function SearchSection() {
   };
 
   return (
-    <div>
-      <form onSubmit={ handleSearch }>
-        <input
+    <>
+
+      <FormControl sx={ { m: 1, minWidth: 120 } } size="small">
+        <InputLabel id="demo-select-small">Filters</InputLabel>
+        <Select
+          color="primary"
+          labelId="demo-select-small"
+          id="demo-select-small"
+          value={ filter }
+          label="Filter"
+          onChange={ (e) => setFilter(e.target.value) }
+        >
+          <MenuItem value="ingredient">Ingredient</MenuItem>
+          <MenuItem value="search">Name</MenuItem>
+          <MenuItem value="firstLetter">First Letter</MenuItem>
+        </Select>
+      </FormControl>
+
+      <Search>
+        <StyledInputBase
+          onKeyDown={ (e) => e.key === 'Enter' && handleSearch(e) }
           onChange={ (e) => setSearch(e.target.value) }
           value={ search }
-          type="text"
-          placeholder="Search..."
-          data-testid="search-input"
+          placeholder="Search…"
+          data-testid="search-top-btn"
+          inputProps={ { 'aria-label': 'search' } }
         />
-        <label htmlFor="ingredient-search-radio">
-          <input
-            type="radio"
-            id="ingredient-search-radio"
-            name="search-type"
-            data-testid="ingredient-search-radio"
-            onChange={ () => setFilter('ingredient') }
-            defaultChecked
-          />
-          Ingredient
-        </label>
-        <label htmlFor="name-search-radio">
-          <input
-            type="radio"
-            id="name-search-radio"
-            name="search-type"
-            onChange={ () => setFilter('search') }
-            data-testid="name-search-radio"
-          />
-          Name
-        </label>
-        <label htmlFor="first-letter-search-radio">
-          <input
-            type="radio"
-            id="first-letter-search-radio"
-            name="search-type"
-            onChange={ () => setFilter('firstLetter') }
-            data-testid="first-letter-search-radio"
-          />
-          First Letter
-        </label>
-        <button data-testid="exec-search-btn" type="submit">Search</button>
-      </form>
-    </div>
+      </Search>
+      <Button
+        variant="contained"
+        onClick={ (e) => handleSearch(e) }
+        type="submit"
+      >
+        <SearchIcon />
+      </Button>
+    </>
   );
 }

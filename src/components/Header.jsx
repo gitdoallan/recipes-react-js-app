@@ -10,7 +10,6 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Typography from '@mui/material/Typography';
-import SearchIcon from '@mui/icons-material/Search';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -20,7 +19,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { Divider } from '@mui/material';
-import { Search, SearchIconWrapper, StyledInputBase } from '../styles/Header';
+import SearchSection from './SearchSection';
 
 export default function HeaderMUI({ title, searchActive }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -88,18 +87,7 @@ export default function HeaderMUI({ title, searchActive }) {
               { title }
             </Typography>
             <Box sx={ { flexGrow: 1 } } />
-            { searchActive && (
-              <Search>
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
-                  placeholder="Search…"
-                  data-testid="search-top-btn"
-                  inputProps={ { 'aria-label': 'search' } }
-                />
-              </Search>
-            ) }
+            { searchActive && <SearchSection /> }
             <IconButton
               size="large"
               edge="end"
