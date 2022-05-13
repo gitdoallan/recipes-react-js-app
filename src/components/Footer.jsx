@@ -1,35 +1,26 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import drinkIconImg from '../images/drinkIcon.svg';
-import exploreIconImg from '../images/exploreIcon.svg';
-import mealIconImg from '../images/mealIcon.svg';
+import Box from '@mui/material/Box';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import IconButton from '@mui/material/IconButton';
 
 export default function Footer() {
   return (
-    <footer data-testid="footer" className="footer">
-      <div className="footer-imgs">
-        <Link to="/drinks">
-          <img
-            data-testid="drinks-bottom-btn"
-            src={ drinkIconImg }
-            alt="Drinks Icon"
-          />
-        </Link>
-
-        <Link to="/explore">
-          <img
-            data-testid="explore-bottom-btn"
-            src={ exploreIconImg }
-            alt="Explore Icon"
-          />
-        </Link>
-        <Link to="/foods">
-          <img
-            data-testid="food-bottom-btn"
-            src={ mealIconImg }
-            alt="Meal Icon"
-          />
-        </Link>
-      </div>
-    </footer>);
+    <Box sx={ { flexGrow: 1 } }>
+      <AppBar position="static" bottom="0" color="secondary">
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="open drawer"
+            sx={ { mr: 2 } }
+          >
+            <ManageAccountsIcon />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+    </Box>
+  );
 }

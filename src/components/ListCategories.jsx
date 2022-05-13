@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
+import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { LIMIT_CATEGORY_LIST } from '../helpers/magicNumbers';
 import { fetchApi } from '../services/api';
+import * as S from '../styles/ListCategories';
 
 function ListCategories({ filter, website, keyType }) {
   const dispatch = useDispatch();
@@ -44,25 +46,23 @@ function ListCategories({ filter, website, keyType }) {
   }, [filter, website, keyType]);
 
   return (
-    <div>
-      <button
-        type="button"
-        data-testid="All-category-filter"
+    <S.ListCategories>
+      <Button
+        variant={ currentCategory === 'all' ? 'contained' : 'outlined' }
         onClick={ () => handleBtnClick('all') }
       >
         All
-      </button>
+      </Button>
       {categories.map(({ strCategory }) => (
-        <button
-          data-testid={ `${strCategory}-category-filter` }
-          type="button"
+        <Button
+          variant={ currentCategory === strCategory ? 'contained' : 'outlined' }
           key={ strCategory }
           onClick={ () => handleBtnClick(strCategory) }
         >
           {strCategory}
-        </button>
+        </Button>
       ))}
-    </div>
+    </S.ListCategories>
   );
 }
 
