@@ -21,6 +21,7 @@ export default function HeaderMUI({ title, searchActive }) {
             edge="start"
             color="inherit"
             aria-label="open drawer"
+            onClick={ () => history.push('/profile') }
             sx={ { mr: 2 } }
           >
             <MenuIcon />
