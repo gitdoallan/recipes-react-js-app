@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-max-depth */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { styled, alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
@@ -62,7 +63,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => {
   };
 });
 
-export default function HeaderMUI() {
+export default function HeaderMUI({ title, searchActive }) {
   return (
     <Box sx={ { flexGrow: 1 } }>
       <AppBar position="static" color="secondary">
@@ -82,18 +83,20 @@ export default function HeaderMUI() {
             component="div"
             sx={ { display: { xs: 'none', sm: 'block' } } }
           >
-            iRecipes
+            { title }
           </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              data-testid="search-top-btn"
-              inputProps={ { 'aria-label': 'search' } }
-            />
-          </Search>
+          { searchActive && (
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                data-testid="search-top-btn"
+                inputProps={ { 'aria-label': 'search' } }
+              />
+            </Search>
+          ) }
           <Box sx={ { flexGrow: 1 } } />
           <IconButton
             size="large"
@@ -109,3 +112,8 @@ export default function HeaderMUI() {
     </Box>
   );
 }
+
+HeaderMUI.propTypes = {
+  title: PropTypes.string.isRequired,
+  searchActive: PropTypes.bool.isRequired,
+};

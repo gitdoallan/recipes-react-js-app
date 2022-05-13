@@ -11,11 +11,10 @@ export default function Foods() {
   );
   return (
     <div>
-      {/* <Header
+      <Header
         title="Foods"
         searchActive
-      /> */}
-      <Header />
+      />
       <h1>FoodsPage</h1>
       <h2>ListCategories:</h2>
       <ListCategories
