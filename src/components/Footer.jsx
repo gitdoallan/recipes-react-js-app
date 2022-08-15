@@ -1,26 +1,48 @@
-import React from 'react';
+import * as React from 'react';
+import { useHistory } from 'react-router-dom';
 import Box from '@mui/material/Box';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import IconButton from '@mui/material/IconButton';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import LocalBarIcon from '@mui/icons-material/LocalBar';
+import ExploreIcon from '@mui/icons-material/Explore';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
 
-export default function Footer() {
+export default function SimpleBottomNavigation() {
+  const [value, setValue] = React.useState(0);
+  const history = useHistory();
+
+  const stickToBottom = {
+    width: '100%',
+    position: 'fixed',
+    bottom: 0,
+  };
+
   return (
-    <Box sx={ { flexGrow: 1 } }>
-      <AppBar position="static" bottom="0" color="secondary">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={ { mr: 2 } }
-          >
-            <ManageAccountsIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
+    <Box>
+      <BottomNavigation
+        style={ stickToBottom }
+        showLabels
+        value={ value }
+        onChange={ (event, newValue) => {
+          setValue(newValue);
+        } }
+      >
+        <BottomNavigationAction
+          label="Foods"
+          icon={ <RestaurantIcon /> }
+          onClick={ () => history.push('/foods') }
+        />
+        <BottomNavigationAction
+          label="Drinks"
+          icon={ <LocalBarIcon /> }
+          onClick={ () => history.push('/drinks') }
+        />
+        <BottomNavigationAction
+          label="Explore"
+          icon={ <ExploreIcon /> }
+          onClick={ () => history.push('/explore') }
+        />
+      </BottomNavigation>
     </Box>
   );
 }

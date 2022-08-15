@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { usePath } from 'hookrouter';
 import SearchIcon from '@mui/icons-material/Search';
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { Search, StyledInputBase } from '../styles/Header';
+import { Search, SearchIconWrapper, StyledInputBase } from '../styles/Header';
 import { fetchApi } from '../services/api';
 
 export default function SearchSection() {
@@ -59,6 +59,9 @@ export default function SearchSection() {
       </FormControl>
 
       <Search>
+        <SearchIconWrapper>
+          <SearchIcon />
+        </SearchIconWrapper>
         <StyledInputBase
           onKeyDown={ (e) => e.key === 'Enter' && handleSearch(e) }
           onChange={ (e) => setSearch(e.target.value) }
@@ -68,13 +71,13 @@ export default function SearchSection() {
           inputProps={ { 'aria-label': 'search' } }
         />
       </Search>
-      <Button
+      {/* <Button
         variant="contained"
         onClick={ (e) => handleSearch(e) }
         type="submit"
       >
         <SearchIcon />
-      </Button>
+      </Button> */}
     </>
   );
 }
